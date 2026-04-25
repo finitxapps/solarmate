@@ -7,15 +7,13 @@ import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/consumers")
 class ConsumerController(
     private val consumerService: ConsumerService
 ) {
-    @PostMapping
+    @PostMapping("/consumer")
     fun addConsumer(@Valid @RequestBody request: AddConsumerRequest): ConsumerResponse {
         val saved = consumerService.addConsumer(request)
 
@@ -30,7 +28,7 @@ class ConsumerController(
         )
     }
 
-    @GetMapping
+    @GetMapping("/consumers")
     fun getConsumers(): List<ConsumerResponse> {
         return consumerService.getConsumers().map {
             ConsumerResponse(

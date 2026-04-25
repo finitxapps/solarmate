@@ -10,7 +10,6 @@ class DatabasePatchConfig {
     @Bean
     fun patchConsumersSchema(jdbcTemplate: JdbcTemplate): ApplicationRunner {
         return ApplicationRunner {
-            // Ensure the table exists even if Flyway history is out of sync.
             jdbcTemplate.execute("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"")
             jdbcTemplate.execute(
                 """
