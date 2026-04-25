@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Calculator from "@/components/calculator/calculator";
+import { AnimatedBackground } from "@/components/animated-background";
 
 export const metadata: Metadata = {
   title: "Solar mate | Calculator",
@@ -15,7 +16,8 @@ export const metadata: Metadata = {
 
 export default function CalculatorPage() {
   return (
-    <main>
+    <main className="bg-transparent">
+          <AnimatedBackground />
       <Calculator />
     </main>
   );

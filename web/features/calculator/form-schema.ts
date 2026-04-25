@@ -5,7 +5,8 @@ const consumerSchema = z.object({
     id: z.string(),
     appliance_id: z.string().min(1, "Please select an appliance"),
     category: z.string(),
-    wattage: z.string().optional(),
+    wattage: z.number().optional(),
+    count: z.number().min(1, "Must have at least 1"),
     ac_capacity: z.string().optional(),
     ac_inverter: z.enum(["Yes", "No"]).optional(),
 }).superRefine((data, ctx) => {
@@ -15,11 +16,6 @@ const consumerSchema = z.object({
         }
         if (!data.ac_inverter) {
             ctx.addIssue({ code: "custom", path: ["ac_inverter"], message: "Required" });
-        }
-    }
-    if (data.category === "Television" || data.category === "Refrigerator" || data.category === "Other") {
-        if (!data.wattage) {
-            ctx.addIssue({ code: "custom", path: ["wattage"], message: "Wattage is required" });
         }
     }
 });

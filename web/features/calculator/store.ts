@@ -19,7 +19,7 @@ interface CalculatorState {
 export const useCalculatorStore = create<CalculatorState>((set) => ({
     currentStep: 1,
     formData: {
-        consumers: [{ id: "initial-item", appliance_id: "", category: "" }],
+        consumers: [],
         concurrent_usage: [],
     },
     apiOptions: null,

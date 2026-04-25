@@ -1,3 +1,10 @@
+export interface Appliance {
+    id: string;
+    displayName: string;
+    category: ApplianceTypes;
+    defaultWattage: number;
+}
+
 export const applianceTypes = ["Air Conditioner", "Refrigerator", "Television", "Lighting", "Washing Machine", "Other"] as const;
 export type ApplianceTypes = typeof applianceTypes[number];
 

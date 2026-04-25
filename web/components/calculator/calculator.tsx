@@ -49,7 +49,7 @@ export default function Calculator() {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center text-muted-foreground bg-background">
+            <div className="min-h-screen flex flex-col items-center justify-center text-muted-foreground">
                 <Loader2 className="h-10 w-10 animate-spin mb-4 text-primary" />
                 <p className="font-medium animate-pulse">Loading configuration...</p>
             </div>
@@ -68,7 +68,7 @@ export default function Calculator() {
                     <Progress value={(currentStep / TOTAL_STEPS) * 100} className="h-2 w-full" />
                 </div>
 
-                <Card className="p-6 shadow-lg bg-card border-border overflow-hidden">
+                <Card className="p-6 shadow-lg border-border overflow-hidden bg-transparent">
                     <FormProvider {...methods}>
                         <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col">
                             <motion.div layout className="grow relative min-h-[350px]">
