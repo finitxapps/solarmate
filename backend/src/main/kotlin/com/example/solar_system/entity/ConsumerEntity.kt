@@ -26,6 +26,8 @@ class ConsumerEntity(
     @Column(nullable = false)
     val surgeWattage: Int = 0,
 
+    val inverter: Boolean? = null,
+
     val amperControl: Boolean? = null,
 
     @JdbcTypeCode(SqlTypes.JSON)

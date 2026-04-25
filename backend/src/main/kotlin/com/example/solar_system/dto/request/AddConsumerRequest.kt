@@ -1,7 +1,6 @@
 package com.example.solar_system.dto.request
 
 import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.Positive
 
 data class AddConsumerRequest(
@@ -14,8 +13,9 @@ data class AddConsumerRequest(
     @field:Positive
     val surgeWattage: Int,
 
+    val inverter: Boolean? = null,
+
     val amperControl: Boolean? = null,
 
-    @field:NotEmpty
-    val features: Map<String, Any>
+    val features: Map<String, Any> = emptyMap()
 )

@@ -30,6 +30,7 @@ class ConsumerService(
             type = request.type,
             normalWattage = request.normalWattage,
             surgeWattage = request.surgeWattage,
+            inverter = request.inverter,
             amperControl = request.amperControl,
             features = request.features
         )

@@ -24,6 +24,7 @@ class ConsumerController(
             type = saved.type,
             normalWattage = saved.normalWattage,
             surgeWattage = saved.surgeWattage,
+            inverter = saved.inverter,
             amperControl = saved.amperControl,
             features = saved.features
         )
@@ -37,6 +38,7 @@ class ConsumerController(
                 type = it.type,
                 normalWattage = it.normalWattage,
                 surgeWattage = it.surgeWattage,
+                inverter = it.inverter,
                 amperControl = it.amperControl,
                 features = it.features
             )

@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS consumers
     type          VARCHAR(50) NOT NULL,
     normal_wattage INTEGER NOT NULL,
     surge_wattage  INTEGER NOT NULL,
+    inverter       BOOLEAN,
     amper_control  BOOLEAN,
     features      JSONB NOT NULL DEFAULT '{}'::jsonb,
     created_at    TIMESTAMP NOT NULL DEFAULT NOW()

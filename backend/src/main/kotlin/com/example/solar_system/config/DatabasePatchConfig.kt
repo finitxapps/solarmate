@@ -20,6 +20,7 @@ class DatabasePatchConfig {
                     type VARCHAR(50) NOT NULL,
                     normal_wattage INTEGER NOT NULL DEFAULT 0,
                     surge_wattage INTEGER NOT NULL DEFAULT 0,
+                    inverter BOOLEAN,
                     amper_control BOOLEAN,
                     features TEXT NOT NULL DEFAULT '{}',
                     created_at TIMESTAMP NOT NULL DEFAULT NOW()
@@ -31,6 +32,7 @@ class DatabasePatchConfig {
             jdbcTemplate.execute("DROP INDEX IF EXISTS idx_consumers_session_id")
             jdbcTemplate.execute("ALTER TABLE consumers ADD COLUMN IF NOT EXISTS normal_wattage INTEGER NOT NULL DEFAULT 0")
             jdbcTemplate.execute("ALTER TABLE consumers ADD COLUMN IF NOT EXISTS surge_wattage INTEGER NOT NULL DEFAULT 0")
+            jdbcTemplate.execute("ALTER TABLE consumers ADD COLUMN IF NOT EXISTS inverter BOOLEAN")
             jdbcTemplate.execute("ALTER TABLE consumers ADD COLUMN IF NOT EXISTS amper_control BOOLEAN")
             jdbcTemplate.execute("ALTER TABLE consumers ADD COLUMN IF NOT EXISTS features TEXT NOT NULL DEFAULT '{}'")
             jdbcTemplate.execute("ALTER TABLE consumers ALTER COLUMN features DROP DEFAULT")

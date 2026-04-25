@@ -5,6 +5,7 @@ data class ConsumerResponse(
     val type: String,
     val normalWattage: Int,
     val surgeWattage: Int,
+    val inverter: Boolean?,
     val amperControl: Boolean?,
     val features: Map<String, Any>
 )
