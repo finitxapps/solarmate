@@ -29,7 +29,7 @@ services:
       SPRING_FLYWAY_BASELINE_ON_MIGRATE: "true"
       SPRING_FLYWAY_VALIDATE_ON_MIGRATE: "false"
     ports:
-      - "8080:8080"
+      - "8088:8080"
 
 volumes:
   pgdata:
