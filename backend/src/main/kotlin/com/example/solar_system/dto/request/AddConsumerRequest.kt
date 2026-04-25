@@ -5,6 +5,9 @@ import jakarta.validation.constraints.Positive
 
 data class AddConsumerRequest(
     @field:NotBlank
+    val consumerType: String,
+
+    @field:NotBlank
     val type: String,
 
     @field:Positive

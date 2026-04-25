@@ -16,6 +16,7 @@ class DatabasePatchConfig {
                 CREATE TABLE IF NOT EXISTS public.consumers
                 (
                     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+                    consumer_type VARCHAR(100) NOT NULL DEFAULT '',
                     type VARCHAR(50) NOT NULL,
                     normal_wattage INTEGER NOT NULL DEFAULT 0,
                     surge_wattage INTEGER NOT NULL DEFAULT 0,
@@ -29,6 +30,7 @@ class DatabasePatchConfig {
 
             jdbcTemplate.execute("ALTER TABLE consumers DROP COLUMN IF EXISTS session_id")
             jdbcTemplate.execute("DROP INDEX IF EXISTS idx_consumers_session_id")
+            jdbcTemplate.execute("ALTER TABLE consumers ADD COLUMN IF NOT EXISTS consumer_type VARCHAR(100) NOT NULL DEFAULT ''")
             jdbcTemplate.execute("ALTER TABLE consumers ADD COLUMN IF NOT EXISTS normal_wattage INTEGER NOT NULL DEFAULT 0")
             jdbcTemplate.execute("ALTER TABLE consumers ADD COLUMN IF NOT EXISTS surge_wattage INTEGER NOT NULL DEFAULT 0")
             jdbcTemplate.execute("ALTER TABLE consumers ADD COLUMN IF NOT EXISTS inverter BOOLEAN")

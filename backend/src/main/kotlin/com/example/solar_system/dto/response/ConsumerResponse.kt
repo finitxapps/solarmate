@@ -2,6 +2,7 @@ package com.example.solar_system.dto.response
 
 data class ConsumerResponse(
     val id: String,
+    val consumerType: String,
     val type: String,
     val normalWattage: Int,
     val surgeWattage: Int,

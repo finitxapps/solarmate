@@ -18,6 +18,9 @@ class ConsumerEntity(
     val id: UUID? = null,
 
     @Column(nullable = false)
+    val consumerType: String = "",
+
+    @Column(nullable = false)
     val type: String = "",
 
     @Column(nullable = false)

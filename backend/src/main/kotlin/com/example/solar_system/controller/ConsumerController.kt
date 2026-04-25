@@ -19,6 +19,7 @@ class ConsumerController(
 
         return ConsumerResponse(
             id = saved.id?.toString().orEmpty(),
+            consumerType = saved.consumerType,
             type = saved.type,
             normalWattage = saved.normalWattage,
             surgeWattage = saved.surgeWattage,
@@ -33,6 +34,7 @@ class ConsumerController(
         return consumerService.getConsumers().map {
             ConsumerResponse(
                 id = it.id?.toString().orEmpty(),
+                consumerType = it.consumerType,
                 type = it.type,
                 normalWattage = it.normalWattage,
                 surgeWattage = it.surgeWattage,

@@ -27,6 +27,7 @@ class ConsumerService(
         }
 
         val consumer = ConsumerEntity(
+            consumerType = request.consumerType,
             type = request.type,
             normalWattage = request.normalWattage,
             surgeWattage = request.surgeWattage,
