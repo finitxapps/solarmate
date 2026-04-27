@@ -1,23 +1,61 @@
-export type ApplianceCategory = "Television" | "Air Conditioner" | "Refrigerator" | "Other";
-
 export interface ApplianceOption {
     id: string;
     displayName: string;
-    category: ApplianceCategory;
-    defaultWattage: number; // <-- Added this
+    category: string;
+    defaultWattage: number;
+    surgeWattage: number;
+}
+interface RawConsumerResponse {
+    id: string;
+    consumerType: string;
+    type: string;
+    normalWattage: number;
+    surgeWattage: number;
+    inverter: boolean | null;
+    amperControl: boolean;
+    features: {
+        [key: string]: string | boolean | undefined;
+        inverter?: string;
+        amperControl?: boolean;
+    };
 }
 
 export const fetchAppliances = async (): Promise<ApplianceOption[]> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve([
-                { id: "lg_ac", displayName: "LG Air Conditioner", category: "Air Conditioner", defaultWattage: 1500 },
-                { id: "general_ac", displayName: "O General AC", category: "Air Conditioner", defaultWattage: 1800 },
-                { id: "samsung_tv", displayName: "Samsung TV", category: "Television", defaultWattage: 150 },
-                { id: "sony_tv", displayName: "Sony TV", category: "Television", defaultWattage: 120 },
-                { id: "bosch_fridge", displayName: "Bosch Refrigerator", category: "Refrigerator", defaultWattage: 400 },
-                { id: "water_pump", displayName: "Water Pump", category: "Other", defaultWattage: 800 },
-            ]);
-        }, 800);
-    });
+    try {
+        const response = await fetch('http://192.168.100.28:8088/consumers', {
+            method: 'GET',
+            headers: {
+                'accept': '*/*',
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data: RawConsumerResponse[] = await response.json();
+
+        return data.map((item) => {
+            let category = "Other";
+
+            if (item.type.includes("کولر")) {
+                category = "Air Conditioner";
+            } else if (item.type.includes("تلویزیون")) {
+                category = "Television";
+            } else if (item.type.includes("یخچال")) {
+                category = "Refrigerator";
+            }
+
+            return {
+                id: item.id,
+                displayName: item.type,
+                category: category,
+                defaultWattage: item.normalWattage,
+                surgeWattage: item.surgeWattage,
+            };
+        });
+    } catch (error) {
+        console.error("Failed to fetch appliances:", error);
+        return [];
+    }
 };
