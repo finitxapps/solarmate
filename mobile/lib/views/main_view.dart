@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:solar_mate/I18n/messages.dart';
+import 'package:solar_mate/configs/api_client_config.dart';
 import 'package:solar_mate/controllers/background_animation_controller.dart';
 import 'package:solar_mate/controllers/locale_controller.dart';
 import 'package:solar_mate/controllers/main_controller.dart';
@@ -74,13 +75,9 @@ class MainView extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(height: 50),
-                      Text(
-                        AppMessages.appName.tr,
-                        style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.white,
-                        ),
+                      Assets.images.logoType.image(
+                        height: 50,
+                        color: Colors.white,
                       ),
                       SizedBox(height: 25),
                       Divider(),
@@ -242,7 +239,7 @@ class MainView extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsetsGeometry.fromLTRB(20, 20, 20, 5),
+                    padding: const EdgeInsetsGeometry.fromLTRB(20, 20, 20, 10),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -384,17 +381,30 @@ class MainView extends StatelessWidget {
                                         ),
                                       ),
                                     } else ...{
-                                      ElevatedButton(
-                                        onPressed: () {},
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.green,
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 45,
+                                      Obx(
+                                        () => ElevatedButton(
+                                          onPressed: () {
+                                            if (!showLoading.value) {
+                                              MainController.to.getResults();
+                                            }
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.green,
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 45,
+                                            ),
                                           ),
-                                        ),
-                                        child: Text(
-                                          AppMessages.calculate.tr,
-                                          style: TextStyle(color: Colors.white),
+                                          child: showLoading.value
+                                              ? Assets.images.loading.image(
+                                                  width: 50,
+                                                  height: 50,
+                                                )
+                                              : Text(
+                                                  AppMessages.calculate.tr,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
                                         ),
                                       ),
                                     },

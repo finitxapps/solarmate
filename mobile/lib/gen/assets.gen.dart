@@ -31,6 +31,13 @@ class $AssetsImagesGen {
   /// File path: assets/images/loading.gif
   AssetGenImage get loading => const AssetGenImage('assets/images/loading.gif');
 
+  /// File path: assets/images/logo.png
+  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
+
+  /// File path: assets/images/logo_type.png
+  AssetGenImage get logoType =>
+      const AssetGenImage('assets/images/logo_type.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
     icAbout,
@@ -38,6 +45,8 @@ class $AssetsImagesGen {
     icHome,
     icMenu,
     loading,
+    logo,
+    logoType,
   ];
 }
 

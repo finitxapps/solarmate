@@ -37,7 +37,8 @@ class SelectConsumersView extends StatelessWidget {
                   final selectedConsumers = MainController.to.selectedConsumers;
                   selectedConsumers[index].isConcurrent =
                       !selectedConsumers[index].isConcurrent;
-                  selectedConsumers[index].concurrentCount = 0;
+                  selectedConsumers[index].concurrentCount =
+                      selectedConsumers[index].isConcurrent ? 1 : 0;
                   selectedConsumers.refresh();
                 },
                 child: Container(
@@ -128,6 +129,14 @@ class SelectConsumersView extends StatelessWidget {
                                           .concurrentCount--;
                                       selectedConsumers.refresh();
                                     }
+
+                                    if (selectedConsumers[index]
+                                            .concurrentCount ==
+                                        0) {
+                                      selectedConsumers[index].isConcurrent =
+                                          false;
+                                      selectedConsumers.refresh();
+                                    }
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
@@ -152,7 +161,11 @@ class SelectConsumersView extends StatelessWidget {
                                   onTap: () {
                                     final selectedConsumers =
                                         MainController.to.selectedConsumers;
-                                    if (selectedConsumers[index].isConcurrent) {
+                                    if (selectedConsumers[index]
+                                            .concurrentCount <
+                                        selectedConsumers[index].count) {
+                                      selectedConsumers[index].isConcurrent =
+                                          true;
                                       selectedConsumers[index]
                                           .concurrentCount++;
                                       selectedConsumers.refresh();

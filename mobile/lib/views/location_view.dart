@@ -13,22 +13,32 @@ class LocationView extends StatelessWidget {
   Future<void> _getCurrentLocation(MapController mapController) async {
     bool serviceEnabled;
     LocationPermission permission;
-
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    permission = await Geolocator.checkPermission();
     if (!serviceEnabled) {
-      print("Location services are disabled.");
+      // if (!locationErrors.contains('Location services are disabled')) {
+      // locationErrors.value += '* Location services are disabled.\n';
+      // }
       await Geolocator.openLocationSettings();
 
       return;
     }
 
-    permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
+      // if (!locationErrors.contains('Permission Denied')) {
+      //   locationErrors.value += '* Permission Denied\n';
+      // }
       permission = await Geolocator.requestPermission();
+      return;
     }
 
     if (permission == LocationPermission.deniedForever) {
-      print("Location permissions are permanently denied.");
+      // if (!locationErrors.contains(
+      //   'Location permissions are permanently denied',
+      // )) {
+      //   locationErrors.value +=
+      //       '* Location permissions are permanently denied.\n';
+      // }
       return;
     }
 
@@ -81,39 +91,44 @@ class LocationView extends StatelessWidget {
           ),
 
           SizedBox(height: 20),
-          TextField(
-            readOnly: true,
-            canRequestFocus: false,
-            controller: TextEditingController(
-              text: MainController.to.mapPoint.value.latitude.toString(),
-            ),
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: AppMessages.latitude.tr,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
-              ),
-            ),
-          ),
-          SizedBox(height: 10),
-          TextField(
-            readOnly: true,
-            canRequestFocus: false,
-            controller: TextEditingController(
-              text: MainController.to.mapPoint.value.longitude.toString(),
-            ),
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: AppMessages.longitude.tr,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
-              ),
-            ),
-          ),
 
-          const SizedBox(height: 20),
+          // TextField(
+          //   readOnly: true,
+          //   canRequestFocus: false,
+          //   controller: TextEditingController(
+          //     text: MainController.to.mapPoint.value.latitude.toString(),
+          //   ),
+          //   keyboardType: TextInputType.number,
+          //   decoration: InputDecoration(
+          //     labelText: AppMessages.latitude.tr,
+          //     border: OutlineInputBorder(
+          //       borderRadius: BorderRadius.circular(50),
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(height: 10),
+          // TextField(
+          //   readOnly: true,
+          //   canRequestFocus: false,
+          //   controller: TextEditingController(
+          //     text: MainController.to.mapPoint.value.longitude.toString(),
+          //   ),
+          //   keyboardType: TextInputType.number,
+          //   decoration: InputDecoration(
+          //     labelText: AppMessages.longitude.tr,
+          //     border: OutlineInputBorder(
+          //       borderRadius: BorderRadius.circular(50),
+          //     ),
+          //   ),
+          // ),
+          // Text(
+          //   MainController.to.locationErrors.value,
+          //   style: TextStyle(color: Colors.red),
+          // ),
+          // const SizedBox(height: 20),
+          // Text('در حال دریافت موقعیت شما...'),
           SizedBox(
-            height: 390,
+            height: 520,
             child: FlutterMap(
               mapController: mapController,
               options: MapOptions(

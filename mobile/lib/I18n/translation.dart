@@ -39,7 +39,7 @@ class AppTranslation extends Translations {
       AppMessages.latitude: 'عرض جغرافیایی',
       AppMessages.longitude: 'طول جغرافیایی',
       AppMessages.meterType: 'نوع کنتور برق خود را انتخاب کنید:',
-      AppMessages.roofPhoto: 'عکس سقف',
+      AppMessages.roofPhoto: 'عکس پشت بام',
       AppMessages.roofPhotoTip:
           'بارگذاری یک عکس از سقف خود که به سمت جنوب است تا به ارزیابی سایه‌زدایی و محل قرارگیری پنل کمک کند.',
       AppMessages.uploadPhotoTitle: 'برای بارگذاری عکس کلیک کنید',
