@@ -1,0 +1,82 @@
+name: solar_mate
+description: "A new Flutter project."
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  get: ^4.7.3
+  http: ^1.6.0
+  get_storage: ^2.1.1
+  image_picker: ^1.2.1
+  flutter_map: ^8.3.0
+  latlong2: ^0.9.1
+  geolocator: ^14.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  build_runner: ^2.12.0
+  flutter_gen_runner: ^5.14.0
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: IranSans
+      fonts:
+        - asset: assets/Fonts/IranSans/IRANSansMobile_UltraLight.ttf
+          weight: 200
+        - asset: assets/Fonts/IranSans/IRANSansMobile_Light.ttf
+          weight: 300
+        - asset: assets/Fonts/IranSans/IRANSansMobile.ttf
+          weight: 400
+        - asset: assets/Fonts/IranSans/IRANSansMobile_Medium.ttf
+          weight: 500
+        - asset: assets/Fonts/IranSans/IRANSansMobile_Bold.ttf
+          weight: 700
+        - asset: assets/Fonts/IranSans/IRANSansMobile_Black.ttf
+          weight: 900
+    - family: IranYekan
+      fonts:
+        - asset: assets/Fonts/IranYekan/IRANYekanThinFaNum.ttf
+          weight: 200
+        - asset: assets/Fonts/IranYekan/IRANYekanThinFaNum.ttf
+          weight: 300
+        - asset: assets/Fonts/IranYekan/IRANYekanRegularFaNum.ttf
+          weight: 400
+        - asset: assets/Fonts/IranYekan/IRANYekanMediumFaNum.ttf
+          weight: 500
+        - asset: assets/Fonts/IranYekan/IRANYekanBoldFaNum.ttf
+          weight: 700
+        - asset: assets/Fonts/IranYekan/IRANYekanBoldFaNum.ttf
+          weight: 900
+    - family: Geist
+      fonts:
+        - asset: assets/Fonts/Geist/Geist-Thin.ttf
+          weight: 200
+        - asset: assets/Fonts/Geist/Geist-Light.ttf
+          weight: 300
+        - asset: assets/Fonts/Geist/Geist-Regular.ttf
+          weight: 400
+        - asset: assets/Fonts/Geist/Geist-Medium.ttf
+          weight: 500
+        - asset: assets/Fonts/Geist/Geist-Bold.ttf
+          weight: 700
+        - asset: assets/Fonts/Geist/Geist-Black.ttf
+          weight: 900
