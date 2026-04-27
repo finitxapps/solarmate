@@ -39,6 +39,17 @@ class DatabasePatchConfig {
             jdbcTemplate.execute("ALTER TABLE consumers ALTER COLUMN features DROP DEFAULT")
             jdbcTemplate.execute("ALTER TABLE consumers ALTER COLUMN features TYPE jsonb USING features::jsonb")
             jdbcTemplate.execute("ALTER TABLE consumers ALTER COLUMN features SET DEFAULT '{}'::jsonb")
+
+            jdbcTemplate.execute(
+                """
+                CREATE TABLE IF NOT EXISTS public.user_input
+                (
+                    id BIGSERIAL PRIMARY KEY,
+                    session_id BIGINT NOT NULL,
+                    payload TEXT NOT NULL
+                )
+                """.trimIndent()
+            )
         }
     }
 }
