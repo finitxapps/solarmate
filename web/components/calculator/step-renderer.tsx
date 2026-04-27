@@ -14,9 +14,9 @@ export function StepRenderer({ step }: { step: number }) {
         case 3: return <Step3RoofArea />;
         case 4: return <Step4Location />;
         case 5: return <Step5MeterType />
-        case 6: return <Step6RoofPhoto />
-        case 7: return <Step7Roof />
-        case 8: return <Step8Expectations />
+        // case 6: return <Step6RoofPhoto />
+        case 6: return <Step7Roof />
+        case 7: return <Step8Expectations />
         default: return <div>Step under construction</div>;
     }
 }

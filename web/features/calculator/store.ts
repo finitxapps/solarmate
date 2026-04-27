@@ -23,7 +23,7 @@ export const useCalculatorStore = create<CalculatorState>((set) => ({
         concurrent_usage: [],
     },
     apiOptions: null,
-    TOTAL_STEPS: 8,
+    TOTAL_STEPS: 7,
     isLoading: true,
 
     setStep: (step) => set({ currentStep: step }),

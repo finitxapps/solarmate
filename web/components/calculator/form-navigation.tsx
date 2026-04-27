@@ -15,9 +15,9 @@ export function FormNavigation() {
             case 3: isValid = await trigger(["roof_area"]); break;
             case 4: isValid = await trigger(["location"]); break;
             case 5: isValid = await trigger(["meter_type"]); break;
-            case 6: isValid = await trigger(["roof_photo"]); break;
-            case 7: isValid = await trigger(["floor_number"]); break;
-            case 8: isValid = await trigger(["expectations"]); break;
+            // case 6: isValid = await trigger(["roof_photo"]); break;
+            case 6: isValid = await trigger(["floor_number"]); break;
+            case 7: isValid = await trigger(["expectations"]); break;
             default: isValid = true;
         }
 
