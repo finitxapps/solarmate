@@ -1,15 +1,16 @@
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import { Monitor, Plug, PlusCircle, Refrigerator, Wind, X, Zap } from "lucide-react";
 import { useRef, useState } from "react";
-import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
-import { Zap, PlusCircle, Monitor, Wind, Refrigerator, Plug, Plus, Minus, X } from "lucide-react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
-import { Stepper } from "@/components/ui/stepper";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useCalculatorStore } from "@/features/calculator/store";
+import { Stepper } from "@/components/ui/stepper";
 import { CalculatorFormValues } from "@/features/calculator/form-schema";
-import { AcInverter, Appliance } from "@/types/calculator";
+import { useCalculatorStore } from "@/features/calculator/store";
+import { ApplianceOption } from "@/lib/api-service";
+import { AcInverter } from "@/types/calculator";
 
 const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -50,7 +51,7 @@ export function Step1Consumers() {
 
     if (!apiOptions) return null;
 
-    const handleAddAppliance = (appliance: Appliance) => {
+    const handleAddAppliance = (appliance: ApplianceOption) => {
         if (isDragging) return;
 
         const existingIndex = fields.findIndex(f => f.appliance_id === appliance.id);
