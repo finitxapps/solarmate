@@ -36,7 +36,7 @@ services:
       context: ../web
     container_name: solar-front
     ports:
-      - "3000:3000"
+      - "3100:3000"
     environment:
       - NEXT_PUBLIC_API_URL=http://192.168.100.28:8088
     depends_on:
