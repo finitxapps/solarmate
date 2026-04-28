@@ -22,7 +22,9 @@ interface RawConsumerResponse {
 
 export const fetchAppliances = async (): Promise<ApplianceOption[]> => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/consumers`, {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://192.168.100.28:8088';
+
+        const response = await fetch(`${API_URL}/consumers`, {
             method: 'GET',
             headers: {
                 'accept': '*/*',
