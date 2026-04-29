@@ -1,10 +1,3 @@
-import 'dart:convert';
-
-ConsumerModel consumerModelFromJson(String str) =>
-    ConsumerModel.fromJson(json.decode(str));
-
-String consumerModelToJson(ConsumerModel data) => json.encode(data.toJson());
-
 class ConsumerModel {
   List<ConsumerItem> list;
 
@@ -15,6 +8,11 @@ class ConsumerModel {
   );
 
   List<dynamic> toJson() => List<dynamic>.from(list.map((x) => x.toJson()));
+
+  @override
+  String toString() {
+    return 'ConsumerModel(\n  list: $list\n)';
+  }
 }
 
 class ConsumerItem {
@@ -58,4 +56,21 @@ class ConsumerItem {
     "amperControl": amperControl,
     "features": features,
   };
+
+  @override
+  String toString() {
+    return '''
+ConsumerItem(
+  id: $id,
+  type: $type,
+  normalWattage: $normalWattage,
+  surgeWattage: $surgeWattage,
+  inverter: $inverter,
+  count: $count,
+  concurrentCount: $concurrentCount,
+  isConcurrent: $isConcurrent,
+  amperControl: $amperControl,
+  features: $features
+)''';
+  }
 }

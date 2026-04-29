@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:solar_mate/I18n/messages.dart';
 import 'package:solar_mate/controllers/main_controller.dart';
 import 'package:solar_mate/widgets/colors_widget.dart';
@@ -10,48 +8,8 @@ import 'package:solar_mate/widgets/colors_widget.dart';
 class LocationView extends StatelessWidget {
   const LocationView({super.key});
 
-  Future<void> _getCurrentLocation(MapController mapController) async {
-    bool serviceEnabled;
-    LocationPermission permission;
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    permission = await Geolocator.checkPermission();
-    if (!serviceEnabled) {
-      // if (!locationErrors.contains('Location services are disabled')) {
-      // locationErrors.value += '* Location services are disabled.\n';
-      // }
-      await Geolocator.openLocationSettings();
-
-      return;
-    }
-
-    if (permission == LocationPermission.denied) {
-      // if (!locationErrors.contains('Permission Denied')) {
-      //   locationErrors.value += '* Permission Denied\n';
-      // }
-      permission = await Geolocator.requestPermission();
-      return;
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // if (!locationErrors.contains(
-      //   'Location permissions are permanently denied',
-      // )) {
-      //   locationErrors.value +=
-      //       '* Location permissions are permanently denied.\n';
-      // }
-      return;
-    }
-
-    Position position = await Geolocator.getCurrentPosition();
-    final userLatLng = LatLng(position.latitude, position.longitude);
-    MainController.to.mapPoint.value = userLatLng;
-    mapController.move(userLatLng, 15);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final MapController mapController = MapController();
-    _getCurrentLocation(mapController);
     return Obx(() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,48 +47,14 @@ class LocationView extends StatelessWidget {
               ),
             ],
           ),
-
           SizedBox(height: 20),
-
-          // TextField(
-          //   readOnly: true,
-          //   canRequestFocus: false,
-          //   controller: TextEditingController(
-          //     text: MainController.to.mapPoint.value.latitude.toString(),
-          //   ),
-          //   keyboardType: TextInputType.number,
-          //   decoration: InputDecoration(
-          //     labelText: AppMessages.latitude.tr,
-          //     border: OutlineInputBorder(
-          //       borderRadius: BorderRadius.circular(50),
-          //     ),
-          //   ),
-          // ),
-          // SizedBox(height: 10),
-          // TextField(
-          //   readOnly: true,
-          //   canRequestFocus: false,
-          //   controller: TextEditingController(
-          //     text: MainController.to.mapPoint.value.longitude.toString(),
-          //   ),
-          //   keyboardType: TextInputType.number,
-          //   decoration: InputDecoration(
-          //     labelText: AppMessages.longitude.tr,
-          //     border: OutlineInputBorder(
-          //       borderRadius: BorderRadius.circular(50),
-          //     ),
-          //   ),
-          // ),
-          // Text(
-          //   MainController.to.locationErrors.value,
-          //   style: TextStyle(color: Colors.red),
-          // ),
-          // const SizedBox(height: 20),
-          // Text('در حال دریافت موقعیت شما...'),
+          // Status Message Section
+          _buildLocationStatusWidget(),
+          SizedBox(height: 20),
           SizedBox(
             height: 520,
             child: FlutterMap(
-              mapController: mapController,
+              mapController: MainController.to.mapController,
               options: MapOptions(
                 initialCenter: MainController.to.mapPoint.value,
                 initialZoom: 15,
@@ -163,6 +87,172 @@ class LocationView extends StatelessWidget {
           ),
         ],
       );
+    });
+  }
+
+  Widget _buildLocationStatusWidget() {
+    return Obx(() {
+      if (MainController.to.locationStatus.value == 'disabled') {
+        return Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.red.withValues(alpha: 0.1),
+            border: Border.all(color: Colors.red, width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'لوکیشن خاموش است',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              SizedBox(height: 8),
+              ElevatedButton.icon(
+                onPressed: () => MainController.to.openLocationSettings(),
+                icon: Icon(Icons.settings),
+                label: Text('رفتن به تنظیمات'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        );
+      } else if (MainController.to.locationStatus.value == 'denied') {
+        return Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.orange.withValues(alpha: 0.1),
+            border: Border.all(color: Colors.orange, width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'دسترسی به لوکیشن رد شد',
+                style: TextStyle(
+                  color: Colors.orange,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              SizedBox(height: 8),
+              ElevatedButton.icon(
+                onPressed: () => MainController.to.requestLocationPermission(),
+                icon: Icon(Icons.check_circle),
+                label: Text('درخواست دسترسی'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orange,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        );
+      } else if (MainController.to.locationStatus.value == 'deniedForever') {
+        return Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.red.withValues(alpha: 0.1),
+            border: Border.all(color: Colors.red, width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'دسترسی به لوکیشن دائمی رد شد',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              SizedBox(height: 8),
+              ElevatedButton.icon(
+                onPressed: () => MainController.to.openAppSettings(),
+                icon: Icon(Icons.settings),
+                label: Text('رفتن به تنظیمات اپلیکیشن'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        );
+      } else if (MainController.to.locationStatus.value == 'retrieving') {
+        return Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.blue.withValues(alpha: 0.1),
+            border: Border.all(color: Colors.blue, width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 16,
+                height: 16,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                ),
+              ),
+              SizedBox(width: 12),
+              Text(
+                'در حال دریافت موقعیت شما...',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+        );
+      } else if (MainController.to.locationStatus.value == 'error') {
+        return Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.red.withValues(alpha: 0.1),
+            border: Border.all(color: Colors.red, width: 1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'خطا در دریافت موقعیت',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              SizedBox(height: 8),
+              ElevatedButton.icon(
+                onPressed: () => MainController.to.getCurrentLocation(),
+                icon: Icon(Icons.refresh),
+                label: Text('تلاش دوباره'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        );
+      } else {
+        return SizedBox();
+      }
     });
   }
 }
