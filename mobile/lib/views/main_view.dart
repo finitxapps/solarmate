@@ -361,14 +361,64 @@ class MainView extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-
                                     if (MainController
                                             .to
                                             .currentPageIndex
                                             .value <
                                         MainController.to.pages.length - 1) ...{
+                                      if (MainController
+                                              .to
+                                              .currentPageIndex
+                                              .value <
+                                          MainController.to.pages.length -
+                                              2) ...{
+                                        ElevatedButton(
+                                          onPressed: MainController.to.nextPage,
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: primaryColor,
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 40,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            AppMessages.next.tr,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      } else ...{
+                                        Obx(
+                                          () => ElevatedButton(
+                                            onPressed: () {
+                                              if (!showLoading.value) {
+                                                MainController.to.getResults();
+                                              }
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.green,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 45,
+                                                  ),
+                                            ),
+                                            child: showLoading.value
+                                                ? Assets.images.loading.image(
+                                                    width: 50,
+                                                    height: 50,
+                                                  )
+                                                : Text(
+                                                    AppMessages.calculate.tr,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                          ),
+                                        ),
+                                      },
+                                    } else ...{
                                       ElevatedButton(
-                                        onPressed: MainController.to.nextPage,
+                                        onPressed: MainController.to.restart,
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: primaryColor,
                                           padding: const EdgeInsets.symmetric(
@@ -376,35 +426,8 @@ class MainView extends StatelessWidget {
                                           ),
                                         ),
                                         child: Text(
-                                          AppMessages.next.tr,
+                                          AppMessages.restart.tr,
                                           style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                    } else ...{
-                                      Obx(
-                                        () => ElevatedButton(
-                                          onPressed: () {
-                                            if (!showLoading.value) {
-                                              MainController.to.getResults();
-                                            }
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.green,
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 45,
-                                            ),
-                                          ),
-                                          child: showLoading.value
-                                              ? Assets.images.loading.image(
-                                                  width: 50,
-                                                  height: 50,
-                                                )
-                                              : Text(
-                                                  AppMessages.calculate.tr,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
                                         ),
                                       ),
                                     },

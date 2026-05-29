@@ -16,7 +16,7 @@ class ConsumerModel {
 }
 
 class ConsumerItem {
-  String id;
+  int id;
   String type;
   int normalWattage;
   int surgeWattage;
@@ -25,7 +25,7 @@ class ConsumerItem {
   int concurrentCount = 0;
   bool isConcurrent = false;
   bool amperControl;
-  Map<String, dynamic>? features;
+  // Map<String, dynamic>? features;
 
   ConsumerItem({
     required this.id,
@@ -34,7 +34,7 @@ class ConsumerItem {
     required this.surgeWattage,
     required this.inverter,
     required this.amperControl,
-    required this.features,
+    // required this.features,
   });
 
   factory ConsumerItem.fromJson(Map<String, dynamic> json) => ConsumerItem(
@@ -44,7 +44,7 @@ class ConsumerItem {
     surgeWattage: json["surgeWattage"],
     inverter: json["inverter"],
     amperControl: json["amperControl"],
-    features: json["features"],
+    // features: json["features"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -53,8 +53,11 @@ class ConsumerItem {
     "normalWattage": normalWattage,
     "surgeWattage": surgeWattage,
     "inverter": inverter,
+    "count": count,
+    "concurrentCount": concurrentCount,
+    "isConcurrent": isConcurrent,
     "amperControl": amperControl,
-    "features": features,
+    // "features": features,
   };
 
   @override
@@ -69,8 +72,7 @@ ConsumerItem(
   count: $count,
   concurrentCount: $concurrentCount,
   isConcurrent: $isConcurrent,
-  amperControl: $amperControl,
-  features: $features
+  amperControl: $amperControl
 )''';
   }
 }

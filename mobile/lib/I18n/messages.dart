@@ -55,4 +55,6 @@ class AppMessages {
   static const String deleteImage = 'deleteImage';
   static const String changeImage = 'changeImage';
   static const String uploadPhoto = 'uploadPhoto';
+  static const String result = 'result';
+  static const String restart = 'restart';
 }

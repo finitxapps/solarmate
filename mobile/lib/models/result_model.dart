@@ -1,0 +1,147 @@
+import 'dart:convert';
+
+ResultModel resultFromJson(String str) =>
+    ResultModel.fromJson(json.decode(str));
+
+String resultToJson(ResultModel data) => json.encode(data.toJson());
+
+class ResultModel {
+  List<PackageModel> packages;
+  // List<SuggestionModel> suggestions;
+  List<OtherCostModel> otherCosts;
+
+  ResultModel({
+    required this.packages,
+    // required this.suggestions,
+    required this.otherCosts,
+  });
+
+  factory ResultModel.fromJson(Map<String, dynamic> json) => ResultModel(
+    packages: List<PackageModel>.from(
+      json["packages"].map((x) => PackageModel.fromJson(x)),
+    ),
+    // suggestions: List<SuggestionModel>.from(
+    //     json["suggestions"].map((x) => SuggestionModel.fromJson(x))),
+    otherCosts: List<OtherCostModel>.from(
+      json["otherCosts"].map((x) => OtherCostModel.fromJson(x)),
+    ),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "packages": List<dynamic>.from(packages.map((x) => x.toJson())),
+    // "suggestions": List<dynamic>.from(suggestions.map((x) => x.toJson())),
+    "otherCosts": List<dynamic>.from(otherCosts.map((x) => x.toJson())),
+  };
+}
+
+class PackageModel {
+  InverterModel inverter;
+  PanelModel panel;
+  int panelCount;
+  int totalPrice;
+  String type;
+
+  PackageModel({
+    required this.inverter,
+    required this.panel,
+    required this.panelCount,
+    required this.totalPrice,
+    required this.type,
+  });
+
+  factory PackageModel.fromJson(Map<String, dynamic> json) => PackageModel(
+    inverter: InverterModel.fromJson(json["inverter"]),
+    panel: PanelModel.fromJson(json["panel"]),
+    panelCount: json["panelCount"],
+    totalPrice: json["totalPrice"],
+    type: json["type"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "inverter": inverter.toJson(),
+    "panel": panel.toJson(),
+    "panelCount": panelCount,
+    "totalPrice": totalPrice,
+    "type": type,
+  };
+}
+
+class InverterModel {
+  String name;
+  int maxPower;
+  int price;
+
+  InverterModel({
+    required this.name,
+    required this.maxPower,
+    required this.price,
+  });
+
+  factory InverterModel.fromJson(Map<String, dynamic> json) => InverterModel(
+    name: json["name"],
+    maxPower: json["maxPower"],
+    price: json["price"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "maxPower": maxPower,
+    "price": price,
+  };
+}
+
+class PanelModel {
+  String name;
+  int power;
+  int price;
+
+  PanelModel({required this.name, required this.power, required this.price});
+
+  factory PanelModel.fromJson(Map<String, dynamic> json) => PanelModel(
+    name: json["name"],
+    power: json["power"],
+    price: json["price"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "power": power,
+    "price": price,
+  };
+}
+
+class OtherCostModel {
+  String name;
+  int price;
+  String description;
+  int id;
+  DateTime createdAt;
+  DateTime updatedAt;
+
+  OtherCostModel({
+    required this.name,
+    required this.price,
+    required this.description,
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory OtherCostModel.fromJson(Map<String, dynamic> json) => OtherCostModel(
+    name: json["name"],
+    price: json["price"],
+    description: json["description"],
+    id: json["id"],
+    createdAt: DateTime.parse(json["createdAt"]),
+    updatedAt: DateTime.parse(json["updatedAt"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "price": price,
+    "description": description,
+    "id": id,
+    "createdAt": createdAt.toIso8601String(),
+    "updatedAt": updatedAt.toIso8601String(),
+  };
+}

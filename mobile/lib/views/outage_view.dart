@@ -134,7 +134,7 @@ class OutageView extends StatelessWidget {
                               : Colors.white10,
                         ),
                         child: Icon(
-                          Icons.ac_unit,
+                          Icons.warning_amber,
                           size: 25,
                           color:
                               MainController.to.selectedOutageIndex.value == 1

@@ -8,15 +8,18 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:solar_mate/I18n/messages.dart';
+import 'package:solar_mate/configs/api_client_config.dart';
 import 'package:solar_mate/configs/app_url_config.dart';
 import 'package:solar_mate/models/consumer_model.dart';
 import 'package:solar_mate/models/data_model.dart';
+import 'package:solar_mate/models/result_model.dart';
 import 'package:solar_mate/views/consumers_view.dart';
 import 'package:solar_mate/views/floor_number.dart';
 import 'package:solar_mate/views/location_view.dart';
 import 'package:solar_mate/views/main_view.dart';
 import 'package:solar_mate/views/meter_type_view.dart';
 import 'package:solar_mate/views/outage_view.dart';
+import 'package:solar_mate/views/result_view.dart';
 import 'package:solar_mate/views/roof_view.dart';
 import 'package:solar_mate/views/select_consumers_view.dart';
 
@@ -33,8 +36,8 @@ class MainController extends GetxController with WidgetsBindingObserver {
     // const RoofPhotoView(),
     const FloorNumberView(),
     const OutageView(),
+    const ResultView(),
   ];
-  RxBool showLoading = false.obs;
   RxList<ConsumerItem> consumerList = <ConsumerItem>[].obs;
   final RxInt currentPageIndex = 0.obs;
   final RxList<ConsumerItem> selectedConsumers = <ConsumerItem>[].obs;
@@ -43,6 +46,8 @@ class MainController extends GetxController with WidgetsBindingObserver {
   final RxString selectedMeterType = '0'.obs;
   final TextEditingController floorNumberController = TextEditingController();
   final RxInt selectedOutageIndex = 0.obs;
+  Rx<ResultModel?> resultModel = Rx<ResultModel?>(null);
+  final RxInt selectedPackageIndex = (-1).obs;
 
   final ImagePicker picker = ImagePicker();
   Rx<File?> selectedImage = Rx<File?>(null);
@@ -80,8 +85,10 @@ class MainController extends GetxController with WidgetsBindingObserver {
   }
 
   Future<void> getConsumers() async {
+    // print('Consumers list: ${Uri.parse('${AppUrlConfig.appUrl}consumer')}');
     http.Response response = await http.get(
-      Uri.parse('${AppUrlConfig.appUrl}consumer'),
+      Uri.parse('http://192.168.100.28:5678/webhook/getConsumers'),
+      // Uri.parse('${AppUrlConfig.appUrl}consumer'),
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -103,19 +110,21 @@ class MainController extends GetxController with WidgetsBindingObserver {
 
   Future<void> getResults() async {
     showLoading.value = true;
-    final String body = DataModel(
-      selectedConsumers: selectedConsumers,
-      roofArea: roofAreaController.text,
-      lat: mapPoint.value.latitude.toString(),
-      lng: mapPoint.value.longitude.toString(),
-      selectedMeterType: selectedMeterType.value,
-      floorNumber: floorNumberController.text,
-      selectedOutage: selectedOutageIndex.value.toString(),
-    ).toJson().toString();
-    print('Json body: $body');
     http.Response response = await http.post(
-      Uri.parse('${AppUrlConfig.appUrl}api/input'),
-      body: jsonEncode({'sessionId': 0, 'data': body}),
+      Uri.parse('http://192.168.100.28:5678/webhook/dataProcess'),
+      // Uri.parse('${AppUrlConfig.appUrl}api/input'),
+      body: jsonEncode({
+        'sessionId': 0,
+        'data': DataModel(
+          selectedConsumers: selectedConsumers,
+          roofArea: roofAreaController.text,
+          lat: mapPoint.value.latitude.toString(),
+          lng: mapPoint.value.longitude.toString(),
+          selectedMeterType: selectedMeterType.value,
+          floorNumber: floorNumberController.text,
+          selectedOutage: selectedOutageIndex.value.toString(),
+        ).toJson(),
+      }),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -124,9 +133,10 @@ class MainController extends GetxController with WidgetsBindingObserver {
 
     if (response.body.isNotEmpty) {
       print(response.body);
-      // var decoded = json.decode(response.body);
-      showLoading.value = false;
+      resultModel.value = resultFromJson(response.body);
+      nextPage();
     }
+    showLoading.value = false;
   }
 
   void nextPage() {
@@ -149,6 +159,16 @@ class MainController extends GetxController with WidgetsBindingObserver {
     if (currentPageIndex.value > 0) {
       currentPageIndex.value--;
     }
+  }
+
+  void restart() {
+    selectedConsumers.clear();
+    roofAreaController.clear();
+    selectedMeterType.value = '0';
+    floorNumberController.clear();
+    selectedOutageIndex.value = 0;
+    selectedImage.value = null;
+    currentPageIndex.value = 0;
   }
 
   void selectMeterType(String? value) {

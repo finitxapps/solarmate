@@ -67,6 +67,8 @@ class AppTranslation extends Translations {
       AppMessages.deleteImage: 'حذف عکس',
       AppMessages.changeImage: 'تغییر یا حذف عکس',
       AppMessages.uploadPhoto: 'آپلود عکس:',
+      AppMessages.result: 'نتیجه:',
+      AppMessages.restart: 'شروع مجدد',
     },
     'en': {
       AppMessages.appName: 'Solar Mate',
@@ -130,6 +132,8 @@ class AppTranslation extends Translations {
       AppMessages.deleteImage: 'Delete Image',
       AppMessages.changeImage: 'Change or delete image',
       AppMessages.uploadPhoto: 'Upload Photo:',
+      AppMessages.result: 'Result:',
+      AppMessages.restart: 'Restart Process',
     },
   };
 }
