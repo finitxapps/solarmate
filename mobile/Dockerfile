@@ -1,20 +1,30 @@
 # --- Stage 1: Build the Flutter Web App ---
 FROM ghcr.io/cirruslabs/flutter:stable AS build
 
+# Switch to the pre-configured non-root user in this image
+USER developer
 WORKDIR /app
 
-# Remove the "mobile/" prefix since we are building inside the mobile folder
+# Fix potential git safe directory issues for the non-root user
+RUN git config --global --add safe.directory /sdks/flutter
+
+# Copy package management files
 COPY pubspec.yaml pubspec.lock ./
 RUN flutter pub get
 
-# Copy everything from the current local folder (.) to the container (.)
+# Copy the rest of the application code
 COPY . .
 
+# Enable web support and compile
 RUN flutter config --enable-web && \
     flutter build web --release
 
 # --- Stage 2: Serve the Static Web Assets ---
 FROM nginx:alpine
+
+# Copy the compiled static assets to Nginx
 COPY --from=build /app/build/web /usr/share/nginx/html
+
 EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
