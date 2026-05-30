@@ -87,7 +87,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
   Future<void> getConsumers() async {
     // print('Consumers list: ${Uri.parse('${AppUrlConfig.appUrl}consumer')}');
     http.Response response = await http.get(
-      Uri.parse('http://192.168.100.28:5678/webhook/getConsumers'),
+      Uri.parse(AppUrlConfig().getUrl(AppUrlConfig.consumers)),
       // Uri.parse('${AppUrlConfig.appUrl}consumer'),
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -111,7 +111,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
   Future<void> getResults() async {
     showLoading.value = true;
     http.Response response = await http.post(
-      Uri.parse('http://192.168.100.28:5678/webhook/dataProcess'),
+      Uri.parse(AppUrlConfig().getUrl(AppUrlConfig.result)),
       // Uri.parse('${AppUrlConfig.appUrl}api/input'),
       body: jsonEncode({
         'sessionId': 0,

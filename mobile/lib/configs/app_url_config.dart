@@ -1,3 +1,10 @@
 class AppUrlConfig {
-  static const String appUrl = 'http://192.168.100.28:8088/';
+  final String _domain = 'https://n8n.dpnaco.com/';
+  final String _domainExt = 'webhook';
+  static const String consumers = 'getConsumers';
+  static const String result = 'dataProcess';
+
+  String getUrl(String domain) {
+    return '$_domain/$_domainExt/$domain';
+  }
 }

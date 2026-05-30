@@ -236,211 +236,236 @@ class MainView extends StatelessWidget {
                   stops: const [0.0, 1.0],
                 ),
               ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsetsGeometry.fromLTRB(20, 20, 20, 10),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            scaffoldKey.currentState?.openDrawer();
-                          },
-                          child: const Icon(
-                            Icons.menu_rounded,
-                            color: Colors.white,
-                            size: 40,
-                          ),
+              child: Center(
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 900),
+
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsGeometry.fromLTRB(
+                          20,
+                          20,
+                          20,
+                          10,
                         ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                AppMessages.appName.tr,
-                                style: themeData.textTheme.headlineMedium!
-                                    .copyWith(
-                                      fontSize: 28,
-                                      letterSpacing: -1,
-                                      fontWeight: FontWeight.w900,
-                                    ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                scaffoldKey.currentState?.openDrawer();
+                              },
+                              child: const Icon(
+                                Icons.menu_rounded,
+                                color: Colors.white,
+                                size: 40,
                               ),
-                              Text(
-                                '${AppMessages.step.tr} ${MainController.to.currentPageIndex.value + 1} ${AppMessages.of.tr} ${MainController.to.pages.length}',
-                                style: TextStyle(
-                                  color: Colors.white54,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: LinearProgressIndicator(
-                      minHeight: 8,
-                      borderRadius: BorderRadius.circular(20),
-                      value:
-                          100 *
-                          (MainController.to.currentPageIndex.value + 1) /
-                          MainController.to.pages.length /
-                          100,
-                    ),
-                  ),
-                  Expanded(
-                    child: Obx(
-                      () => Center(
-                        child: Container(
-                          margin: const EdgeInsets.all(20),
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.white38,
-                              width: 0.5,
                             ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        MainController.to.pages[MainController
-                                            .to
-                                            .currentPageIndex
-                                            .value],
-                                      ],
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    AppMessages.appName.tr,
+                                    style: themeData.textTheme.headlineMedium!
+                                        .copyWith(
+                                          fontSize: 28,
+                                          letterSpacing: -1,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                  ),
+                                  Text(
+                                    '${AppMessages.step.tr} ${MainController.to.currentPageIndex.value + 1} ${AppMessages.of.tr} ${MainController.to.pages.length}',
+                                    style: TextStyle(
+                                      color: Colors.white54,
+                                      fontSize: 12,
                                     ),
                                   ),
-                                ),
+                                ],
                               ),
-                              Divider(color: Colors.white38),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        if (MainController
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: LinearProgressIndicator(
+                          minHeight: 8,
+                          borderRadius: BorderRadius.circular(20),
+                          value:
+                              100 *
+                              (MainController.to.currentPageIndex.value + 1) /
+                              MainController.to.pages.length /
+                              100,
+                        ),
+                      ),
+                      Expanded(
+                        child: Obx(
+                          () => Center(
+                            child: Container(
+                              margin: const EdgeInsets.all(20),
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.white38,
+                                  width: 0.5,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(16),
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            MainController
+                                                .to
+                                                .pages[MainController
                                                 .to
                                                 .currentPageIndex
-                                                .value >
-                                            0) {
-                                          MainController.to.previousPage();
-                                        }
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.black12,
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 40,
-                                        ),
-                                      ),
-
-                                      child: Text(
-                                        AppMessages.previous.tr,
-                                        style: TextStyle(
-                                          color:
-                                              MainController
-                                                      .to
-                                                      .currentPageIndex
-                                                      .value >
-                                                  0
-                                              ? Colors.white
-                                              : Colors.white54,
+                                                .value],
+                                          ],
                                         ),
                                       ),
                                     ),
-                                    if (MainController
-                                            .to
-                                            .currentPageIndex
-                                            .value <
-                                        MainController.to.pages.length - 1) ...{
-                                      if (MainController
-                                              .to
-                                              .currentPageIndex
-                                              .value <
-                                          MainController.to.pages.length -
-                                              2) ...{
+                                  ),
+                                  Divider(color: Colors.white38),
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
                                         ElevatedButton(
-                                          onPressed: MainController.to.nextPage,
+                                          onPressed: () {
+                                            if (MainController
+                                                    .to
+                                                    .currentPageIndex
+                                                    .value >
+                                                0) {
+                                              MainController.to.previousPage();
+                                            }
+                                          },
                                           style: ElevatedButton.styleFrom(
-                                            backgroundColor: primaryColor,
+                                            backgroundColor: Colors.black12,
                                             padding: const EdgeInsets.symmetric(
                                               horizontal: 40,
                                             ),
                                           ),
+
                                           child: Text(
-                                            AppMessages.next.tr,
+                                            AppMessages.previous.tr,
                                             style: TextStyle(
-                                              color: Colors.white,
+                                              color:
+                                                  MainController
+                                                          .to
+                                                          .currentPageIndex
+                                                          .value >
+                                                      0
+                                                  ? Colors.white
+                                                  : Colors.white54,
                                             ),
                                           ),
                                         ),
-                                      } else ...{
-                                        Obx(
-                                          () => ElevatedButton(
-                                            onPressed: () {
-                                              if (!showLoading.value) {
-                                                MainController.to.getResults();
-                                              }
-                                            },
+                                        if (MainController
+                                                .to
+                                                .currentPageIndex
+                                                .value <
+                                            MainController.to.pages.length -
+                                                1) ...{
+                                          if (MainController
+                                                  .to
+                                                  .currentPageIndex
+                                                  .value <
+                                              MainController.to.pages.length -
+                                                  2) ...{
+                                            ElevatedButton(
+                                              onPressed:
+                                                  MainController.to.nextPage,
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: primaryColor,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 40,
+                                                    ),
+                                              ),
+                                              child: Text(
+                                                AppMessages.next.tr,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          } else ...{
+                                            Obx(
+                                              () => ElevatedButton(
+                                                onPressed: () {
+                                                  if (!showLoading.value) {
+                                                    MainController.to
+                                                        .getResults();
+                                                  }
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.green,
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        horizontal: 45,
+                                                      ),
+                                                ),
+                                                child: showLoading.value
+                                                    ? Assets.images.loading
+                                                          .image(
+                                                            width: 50,
+                                                            height: 50,
+                                                          )
+                                                    : Text(
+                                                        AppMessages
+                                                            .calculate
+                                                            .tr,
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                              ),
+                                            ),
+                                          },
+                                        } else ...{
+                                          ElevatedButton(
+                                            onPressed:
+                                                MainController.to.restart,
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.green,
+                                              backgroundColor: primaryColor,
                                               padding:
                                                   const EdgeInsets.symmetric(
-                                                    horizontal: 45,
+                                                    horizontal: 40,
                                                   ),
                                             ),
-                                            child: showLoading.value
-                                                ? Assets.images.loading.image(
-                                                    width: 50,
-                                                    height: 50,
-                                                  )
-                                                : Text(
-                                                    AppMessages.calculate.tr,
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
+                                            child: Text(
+                                              AppMessages.restart.tr,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      },
-                                    } else ...{
-                                      ElevatedButton(
-                                        onPressed: MainController.to.restart,
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: primaryColor,
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 40,
-                                          ),
-                                        ),
-                                        child: Text(
-                                          AppMessages.restart.tr,
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                    },
-                                  ],
-                                ),
+                                        },
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
