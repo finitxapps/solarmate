@@ -1,4 +1,4 @@
-```dockerfile
+
 # =========================
 # Stage 1: Build Flutter Web
 # =========================
@@ -50,4 +50,4 @@ RUN printf '%s\n' \
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
-```
+
