@@ -1,39 +1,38 @@
-
 # =========================
 # Stage 1: Build Flutter Web
 # =========================
-FROM instrumentisto/flutter:3.35.1 AS build
+FROM ghcr.io/cirruslabs/flutter:3.44.0 AS build
 
 WORKDIR /app
 
-# Prevent analytics/noise
 ENV FLUTTER_SUPPRESS_ANALYTICS=true
 ENV CI=true
 
-# Clean pub cache
-RUN flutter pub cache clean
+# Optional but helpful
+RUN flutter --version
+RUN dart --version
 
 # Copy dependency files first
 COPY pubspec.yaml pubspec.lock ./
 
-# Get dependencies
+# Install dependencies
 RUN flutter pub get
 
-# Copy project
+# Copy full project
 COPY . .
 
-# Build web
+# Build web app
 RUN flutter config --enable-web
 RUN flutter build web --release
 
 # =========================
-# Stage 2: Serve with nginx
+# Stage 2: Nginx
 # =========================
 FROM nginx:alpine
 
 COPY --from=build /app/build/web /usr/share/nginx/html
 
-# SPA routing support
+# SPA routing
 RUN printf '%s\n' \
 'server {' \
 '    listen 80;' \
@@ -50,4 +49,3 @@ RUN printf '%s\n' \
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
-
