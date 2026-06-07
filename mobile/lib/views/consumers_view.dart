@@ -54,7 +54,7 @@ class ConsumersView extends StatelessWidget {
                       children: [
                         Icon(Icons.tv, size: 14, color: Colors.white54),
                         Text(
-                          consumersModelList[listIndex].title,
+                          consumersModelList[listIndex].type,
                           style: TextStyle(color: Colors.white, fontSize: 12),
                         ),
                         Text(
