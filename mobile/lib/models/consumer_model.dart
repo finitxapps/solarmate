@@ -17,7 +17,7 @@ class ConsumerModel {
 
 class ConsumerItem {
   int id;
-  String title;
+  String type;
   int normalWattage;
   int surgeWattage;
   bool? inverter;
