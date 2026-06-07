@@ -17,7 +17,7 @@ class ConsumerModel {
 
 class ConsumerItem {
   int id;
-  String type;
+  String title;
   int normalWattage;
   int surgeWattage;
   bool? inverter;
@@ -25,6 +25,7 @@ class ConsumerItem {
   int concurrentCount = 0;
   bool isConcurrent = false;
   bool amperControl;
+  String comment
   // Map<String, dynamic>? features;
 
   ConsumerItem({
