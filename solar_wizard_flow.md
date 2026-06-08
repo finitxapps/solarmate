@@ -190,21 +190,22 @@ flowchart TD
 
 ---
 
-### Step 7: Outage Expectations (`OutageView`)
+### Step 4: Outage Expectations (`OutageView`)
 - **File:** [outage_view.dart](file:///C:/Users/Ali/.gemini/antigravity/worktrees/solarmate/document-solar-wizard-flow/mobile/lib/views/outage_view.dart)
 - **Purpose**: Understand backup requirements for sizing energy storage (batteries) and select hybrid vs off-grid options.
 - **UI Details**:
-  - Displays two choice cards bound to `MainController.to.selectedOutageIndex`:
+  - Displays three choice cards bound to `MainController.to.selectedOutageIndex`:
     - **`0` - Emergencies Only (فقط مواقع اضطراری)**: Only keeps critical items like refrigerators, Wi-Fi, and lights running. ACs and heavy appliances are shut down.
     - **`1` - Heavy Usage (استفاده سنگین)**: Keeps heavy appliances (like ACs and coolers) running for up to 5 hours.
+    - **`2` - Let me choose myself (خودم انتخاب می‌کنم)**: Expands a list below to let the user select specifically which appliances should be covered under battery backup (when no sun and grid support are available) and specify their quantities (similar to Step 2). These selections are serialized as a list under `batteryConsumers` in the final request payload.
 
 ---
 
 ### Calculation & API Trigger
-When the user is on Step 7 (Outage View), the bottom-right button switches from **"Next"** to **"Calculate"** (محاسبه).
+When the user is on Step 4 (Outage View), the bottom-right button switches from **"Next"** to **"Calculate"** (محاسبه).
 1. Clicking "Calculate" shows a loading spinner on the button.
 2. An HTTP POST request is dispatched to `https://n8n.dpnaco.com/webhook/dataProcess`.
-3. The request body contains `sessionId` and the serialized `DataModel`.
+3. The request body contains `sessionId` and the serialized `DataModel` (including `batteryConsumers`).
 4. Upon receiving the response, the app deserializes the JSON response into `ResultModel`, stores it in `resultModel.value`, and navigates to the next page index.
 
 ---

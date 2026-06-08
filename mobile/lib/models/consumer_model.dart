@@ -27,6 +27,8 @@ class ConsumerItem {
   bool amperControl;
   // String? comment;
   // Map<String, dynamic>? features;
+  int batteryCount = 0;
+  bool isBatteryBackup = false;
 
   ConsumerItem({
     required this.id,
@@ -58,6 +60,8 @@ class ConsumerItem {
     "concurrentCount": concurrentCount,
     "isConcurrent": isConcurrent,
     "amperControl": amperControl,
+    "batteryCount": batteryCount,
+    "isBatteryBackup": isBatteryBackup,
     // "features": features,
   };
 

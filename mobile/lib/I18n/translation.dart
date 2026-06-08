@@ -56,6 +56,9 @@ class AppTranslation extends Translations {
       AppMessages.heavyUsage: 'استفاده سنگین',
       AppMessages.heavyUsageDescription:
           'پشتیبان‌گیری کامل برق. نگه داشتن همه چیز در حال کار، از جمله واحدهای AC و خنک‌کننده‌ها، برای حداکثر 5 ساعت.',
+      AppMessages.letMeChoose: 'خودم انتخاب می‌کنم',
+      AppMessages.letMeChooseDescription:
+          'وسایلی که می‌خواهید در زمان قطعی برق و نبودن آفتاب توسط باتری تغذیه شوند را خودتان انتخاب کنید.',
       AppMessages.wattage: 'وات',
       AppMessages.perUnit: 'برای هر واحد',
       AppMessages.systemTotal: 'تعداد انتخاب شده:',
@@ -131,6 +134,9 @@ class AppTranslation extends Translations {
       AppMessages.heavyUsage: 'Heavy Usage',
       AppMessages.heavyUsageDescription:
           'Full power backup. Keep everything running, including AC units and coolers, for up to 5 hours.',
+      AppMessages.letMeChoose: 'Let me choose myself',
+      AppMessages.letMeChooseDescription:
+          'Manually select which specific appliances you want to be covered by the battery backup.',
       AppMessages.wattage: 'W',
       AppMessages.perUnit: 'per unit',
       AppMessages.systemTotal: 'System Total',

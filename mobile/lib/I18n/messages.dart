@@ -44,6 +44,8 @@ class AppMessages {
   static const String emergenciesOnlyDescription = 'emergenciesOnlyDescription';
   static const String heavyUsage = 'heavyUsage';
   static const String heavyUsageDescription = 'heavyUsageDescription';
+  static const String letMeChoose = 'letMeChoose';
+  static const String letMeChooseDescription = 'letMeChooseDescription';
   static const String wattage = 'wattage';
   static const String perUnit = 'perUnit';
   static const String systemTotal = 'systemTotal';
