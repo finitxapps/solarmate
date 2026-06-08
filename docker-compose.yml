@@ -1,0 +1,41 @@
+services:
+  
+  front:
+    build:
+      context: mobile
+      #args:
+      #  - NEXT_PUBLIC_API_URL=http://192.168.100.28:8088
+    container_name: solar-front
+    
+    networks:
+      - traefik
+    
+    ports:
+      - "8001:80"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.solar-mate-front.rule=Host(`mate.solaryazd.com`)
+      - traefik.http.routers.solar-mate-front.tls=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.solar-mate-front.entrypoints=web,websecure
+      - traefik.http.routers.solar-mate-front.tls.certresolver=mydnschallenge
+      - traefik.http.middlewares.solar-mate-front.headers.SSLRedirect=true
+      - traefik.http.middlewares.solar-mate-front.headers.STSSeconds=315360000
+      - traefik.http.middlewares.solar-mate-front.headers.browserXSSFilter=true
+      - traefik.http.middlewares.solar-mate-front.headers.contentTypeNosniff=true
+      - traefik.http.middlewares.solar-mate-front.headers.forceSTSHeader=true
+     # - traefik.http.middlewares.solar-mate-front.headers.SSLHost=finitx.com
+      - traefik.http.middlewares.solar-mate-front.headers.STSIncludeSubdomains=true
+      - traefik.http.middlewares.solar-mate-front.headers.STSPreload=true
+      - traefik.http.routers.solar-mate-front.middlewares=portainer@docker
+      - traefik.http.services.solar-mate-front.loadbalancer.server.port=80
+      - "traefik.http.routers.portainer.observability.tracing=true"  
+    #environment:
+     # - NEXT_PUBLIC_API_URL=http://192.168.100.28:8088
+   # depends_on:
+     # - app
+networks:
+ traefik :
+   external: true
+#volumes:
+#  pgdata:
