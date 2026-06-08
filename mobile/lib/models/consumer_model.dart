@@ -25,7 +25,7 @@ class ConsumerItem {
   int concurrentCount = 0;
   bool isConcurrent = false;
   bool amperControl;
-  String comment
+  // String? comment;
   // Map<String, dynamic>? features;
 
   ConsumerItem({
