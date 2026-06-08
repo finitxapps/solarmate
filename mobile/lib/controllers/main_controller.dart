@@ -30,9 +30,9 @@ class MainController extends GetxController with WidgetsBindingObserver {
   final List<Widget> pages = [
     const ConsumersView(),
     const SelectConsumersView(),
-    const RoofView(),
-    const LocationView(),
-    const MeterTypeView(),
+    // const RoofView(),
+    // const LocationView(),
+    // const MeterTypeView(),
     // const RoofPhotoView(),
     const FloorNumberView(),
     const OutageView(),
