@@ -57,4 +57,14 @@ class AppMessages {
   static const String uploadPhoto = 'uploadPhoto';
   static const String result = 'result';
   static const String restart = 'restart';
+  static const String recommendedPackages = 'recommendedPackages';
+  static const String inverter = 'inverter';
+  static const String panel = 'panel';
+  static const String name = 'name';
+  static const String power = 'power';
+  static const String price = 'price';
+  static const String panelCount = 'panelCount';
+  static const String totalPrice = 'totalPrice';
+  static const String otherCosts = 'otherCosts';
+  static const String description = 'description';
 }

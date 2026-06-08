@@ -1,7 +1,12 @@
 import 'dart:convert';
 
-ResultModel resultFromJson(String str) =>
-    ResultModel.fromJson(json.decode(str));
+ResultModel resultFromJson(String str) {
+  final decoded = json.decode(str);
+  if (decoded is List) {
+    return ResultModel.fromJson(decoded.first);
+  }
+  return ResultModel.fromJson(decoded);
+}
 
 String resultToJson(ResultModel data) => json.encode(data.toJson());
 
@@ -70,23 +75,27 @@ class InverterModel {
   String name;
   int maxPower;
   int price;
+  String? image;
 
   InverterModel({
     required this.name,
     required this.maxPower,
     required this.price,
+    this.image,
   });
 
   factory InverterModel.fromJson(Map<String, dynamic> json) => InverterModel(
-    name: json["name"],
-    maxPower: json["maxPower"],
-    price: json["price"],
+    name: json["brand"] ?? json["name"] ?? '',
+    maxPower: json["power"] ?? json["maxPower"] ?? 0,
+    price: json["price"] ?? 0,
+    image: json["image"],
   );
 
   Map<String, dynamic> toJson() => {
     "name": name,
     "maxPower": maxPower,
     "price": price,
+    "image": image,
   };
 }
 
@@ -94,19 +103,27 @@ class PanelModel {
   String name;
   int power;
   int price;
+  String? image;
 
-  PanelModel({required this.name, required this.power, required this.price});
+  PanelModel({
+    required this.name,
+    required this.power,
+    required this.price,
+    this.image,
+  });
 
   factory PanelModel.fromJson(Map<String, dynamic> json) => PanelModel(
-    name: json["name"],
-    power: json["power"],
-    price: json["price"],
+    name: json["brand"] ?? json["name"] ?? '',
+    power: json["wattage"] ?? json["power"] ?? 0,
+    price: json["price"] ?? 0,
+    image: json["image"],
   );
 
   Map<String, dynamic> toJson() => {
     "name": name,
     "power": power,
     "price": price,
+    "image": image,
   };
 }
 
