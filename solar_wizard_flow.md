@@ -60,7 +60,8 @@ Defined in [data_model.dart](file:///C:/Users/Ali/.gemini/antigravity/worktrees/
   "lng": "51.3890",
   "selectedMeterType": "0",
   "floorNumber": "3",
-  "selectedOutage": "0"
+  "selectedOutage": "2",
+  "batteryHours": "5"
 }
 ```
 
@@ -197,7 +198,9 @@ flowchart TD
   - Displays three choice cards bound to `MainController.to.selectedOutageIndex`:
     - **`0` - Emergencies Only (فقط مواقع اضطراری)**: Only keeps critical items like refrigerators, Wi-Fi, and lights running. ACs and heavy appliances are shut down.
     - **`1` - Heavy Usage (استفاده سنگین)**: Keeps heavy appliances (like ACs and coolers) running for up to 5 hours.
-    - **`2` - Let me choose myself (خودم انتخاب می‌کنم)**: Expands a list below to let the user select specifically which appliances should be covered under battery backup (when no sun and grid support are available) and specify their quantities (similar to Step 2). These selections are serialized directly inside the corresponding items in `selectedConsumers` as `isBatteryBackup` and `batteryCount` properties.
+    - **`2` - Let me choose myself (خودم انتخاب می‌کنم)**:
+      - Expands a list below to let the user select specifically which appliances should be covered under battery backup (when no sun and grid support are available) and specify their quantities (similar to Step 2). These selections are serialized directly inside the corresponding items in `selectedConsumers` as `isBatteryBackup` and `batteryCount` properties.
+      - Expands a counter control to let the user select the required backup duration (in hours, from 1 to 24, default is 5 hours). This value is serialized under the key `batteryHours` (as a string) in the final request payload.
 
 ---
 

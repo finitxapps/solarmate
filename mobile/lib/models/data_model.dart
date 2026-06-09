@@ -12,6 +12,7 @@ class DataModel {
   String selectedMeterType;
   String floorNumber;
   String selectedOutage;
+  String? batteryHours;
 
   DataModel({
     required this.selectedConsumers,
@@ -21,6 +22,7 @@ class DataModel {
     required this.selectedMeterType,
     required this.floorNumber,
     required this.selectedOutage,
+    this.batteryHours,
   });
 
   Map<String, dynamic> toJson() => {
@@ -31,5 +33,6 @@ class DataModel {
     "selectedMeterType": selectedMeterType,
     "floorNumber": floorNumber,
     "selectedOutage": selectedOutage,
+    if (batteryHours != null) "batteryHours": batteryHours,
   };
 }

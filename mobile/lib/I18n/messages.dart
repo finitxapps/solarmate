@@ -69,4 +69,7 @@ class AppMessages {
   static const String totalPrice = 'totalPrice';
   static const String otherCosts = 'otherCosts';
   static const String description = 'description';
+  static const String batteryHours = 'batteryHours';
+  static const String batteryHoursTip = 'batteryHoursTip';
+  static const String hoursSuffix = 'hoursSuffix';
 }

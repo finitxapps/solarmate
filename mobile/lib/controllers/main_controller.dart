@@ -46,6 +46,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
   final RxString selectedMeterType = '0'.obs;
   final TextEditingController floorNumberController = TextEditingController();
   final RxInt selectedOutageIndex = 0.obs;
+  final RxInt batteryHours = 5.obs;
   Rx<ResultModel?> resultModel = Rx<ResultModel?>(null);
   final RxInt selectedPackageIndex = (-1).obs;
 
@@ -123,6 +124,9 @@ class MainController extends GetxController with WidgetsBindingObserver {
           selectedMeterType: selectedMeterType.value,
           floorNumber: floorNumberController.text,
           selectedOutage: selectedOutageIndex.value.toString(),
+          batteryHours: selectedOutageIndex.value == 2
+              ? batteryHours.value.toString()
+              : null,
         ).toJson(),
       }),
       headers: {
@@ -169,6 +173,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
     selectedOutageIndex.value = 0;
     selectedImage.value = null;
     currentPageIndex.value = 0;
+    batteryHours.value = 5;
   }
 
   void selectMeterType(String? value) {

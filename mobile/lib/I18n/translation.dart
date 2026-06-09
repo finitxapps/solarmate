@@ -82,6 +82,9 @@ class AppTranslation extends Translations {
       AppMessages.totalPrice: 'قیمت کل',
       AppMessages.otherCosts: 'مخارج ثابت:',
       AppMessages.description: 'توضیحات',
+      AppMessages.batteryHours: 'مدت زمان پشتیبانی باتری',
+      AppMessages.batteryHoursTip: 'به چند ساعت پشتیبانی باتری نیاز دارید؟',
+      AppMessages.hoursSuffix: 'ساعت',
     },
     'en': {
       AppMessages.appName: 'Solar Mate',
@@ -160,6 +163,9 @@ class AppTranslation extends Translations {
       AppMessages.totalPrice: 'Total Price',
       AppMessages.otherCosts: 'Fixed Costs:',
       AppMessages.description: 'Description',
+      AppMessages.batteryHours: 'Battery Backup Duration',
+      AppMessages.batteryHoursTip: 'How many hours of battery backup do you need?',
+      AppMessages.hoursSuffix: 'Hours',
     },
   };
 }
