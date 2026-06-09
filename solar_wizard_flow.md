@@ -197,7 +197,7 @@ flowchart TD
   - Displays three choice cards bound to `MainController.to.selectedOutageIndex`:
     - **`0` - Emergencies Only (فقط مواقع اضطراری)**: Only keeps critical items like refrigerators, Wi-Fi, and lights running. ACs and heavy appliances are shut down.
     - **`1` - Heavy Usage (استفاده سنگین)**: Keeps heavy appliances (like ACs and coolers) running for up to 5 hours.
-    - **`2` - Let me choose myself (خودم انتخاب می‌کنم)**: Expands a list below to let the user select specifically which appliances should be covered under battery backup (when no sun and grid support are available) and specify their quantities (similar to Step 2). These selections are serialized as a list under `batteryConsumers` in the final request payload.
+    - **`2` - Let me choose myself (خودم انتخاب می‌کنم)**: Expands a list below to let the user select specifically which appliances should be covered under battery backup (when no sun and grid support are available) and specify their quantities (similar to Step 2). These selections are serialized directly inside the corresponding items in `selectedConsumers` as `isBatteryBackup` and `batteryCount` properties.
 
 ---
 
@@ -205,7 +205,7 @@ flowchart TD
 When the user is on Step 4 (Outage View), the bottom-right button switches from **"Next"** to **"Calculate"** (محاسبه).
 1. Clicking "Calculate" shows a loading spinner on the button.
 2. An HTTP POST request is dispatched to `https://n8n.dpnaco.com/webhook/dataProcess`.
-3. The request body contains `sessionId` and the serialized `DataModel` (including `batteryConsumers`).
+3. The request body contains `sessionId` and the serialized `DataModel`.
 4. Upon receiving the response, the app deserializes the JSON response into `ResultModel`, stores it in `resultModel.value`, and navigates to the next page index.
 
 ---

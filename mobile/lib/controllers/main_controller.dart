@@ -123,9 +123,6 @@ class MainController extends GetxController with WidgetsBindingObserver {
           selectedMeterType: selectedMeterType.value,
           floorNumber: floorNumberController.text,
           selectedOutage: selectedOutageIndex.value.toString(),
-          batteryConsumers: selectedOutageIndex.value == 2
-              ? selectedConsumers.where((x) => x.isBatteryBackup).toList()
-              : <ConsumerItem>[],
         ).toJson(),
       }),
       headers: {

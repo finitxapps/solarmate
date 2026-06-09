@@ -12,7 +12,6 @@ class DataModel {
   String selectedMeterType;
   String floorNumber;
   String selectedOutage;
-  List<ConsumerItem> batteryConsumers;
 
   DataModel({
     required this.selectedConsumers,
@@ -22,7 +21,6 @@ class DataModel {
     required this.selectedMeterType,
     required this.floorNumber,
     required this.selectedOutage,
-    required this.batteryConsumers,
   });
 
   Map<String, dynamic> toJson() => {
@@ -33,6 +31,5 @@ class DataModel {
     "selectedMeterType": selectedMeterType,
     "floorNumber": floorNumber,
     "selectedOutage": selectedOutage,
-    "batteryConsumers": batteryConsumers,
   };
 }
