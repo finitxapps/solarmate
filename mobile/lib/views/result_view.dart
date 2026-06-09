@@ -147,11 +147,31 @@ class ResultView extends StatelessWidget {
                               title: AppMessages.panel.tr,
                               name: package.panel.name,
                               powerText: '${package.panel.power} W',
-                              priceText: package.panel.price.toMoney(),
+                              priceText: package.panelCount > 1
+                                  ? '${AppMessages.unitPrice.tr}: ${package.panel.price.toMoney()}  |  ${AppMessages.total.tr}: ${(package.panel.price * package.panelCount).toMoney()}'
+                                  : package.panel.price.toMoney(),
                               imageUrl: package.panel.image,
                               icon: Icons.solar_power_rounded,
                               extraInfo: '${AppMessages.panelCount.tr}: ${package.panelCount}',
                             ),
+                            // Battery Detail Row (if available)
+                            if (package.batteryConfig != null) ...[
+                              const SizedBox(height: 16),
+                              const Divider(color: Colors.white12, height: 1),
+                              const SizedBox(height: 16),
+                              _buildItemRow(
+                                context: context,
+                                title: AppMessages.battery.tr,
+                                name: package.batteryConfig!.name,
+                                powerText: '${package.batteryConfig!.capacityWh} Wh',
+                                priceText: package.batteryConfig!.count > 1
+                                    ? '${AppMessages.unitPrice.tr}: ${package.batteryConfig!.price.toMoney()}  |  ${AppMessages.total.tr}: ${package.batteryConfig!.totalCost.toMoney()}'
+                                    : package.batteryConfig!.totalCost.toMoney(),
+                                imageUrl: package.batteryConfig!.image,
+                                icon: Icons.battery_charging_full_rounded,
+                                extraInfo: '${AppMessages.count.tr}: ${package.batteryConfig!.count}',
+                              ),
+                            ],
                           ],
                         ),
                       ),

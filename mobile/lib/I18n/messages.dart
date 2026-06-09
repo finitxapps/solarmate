@@ -72,4 +72,9 @@ class AppMessages {
   static const String batteryHours = 'batteryHours';
   static const String batteryHoursTip = 'batteryHoursTip';
   static const String hoursSuffix = 'hoursSuffix';
+  static const String battery = 'battery';
+  static const String capacity = 'capacity';
+  static const String total = 'total';
+  static const String unitPrice = 'unitPrice';
+  static const String count = 'count';
 }

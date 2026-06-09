@@ -45,6 +45,7 @@ class PackageModel {
   int panelCount;
   int totalPrice;
   String type;
+  BatteryConfigModel? batteryConfig;
 
   PackageModel({
     required this.inverter,
@@ -52,6 +53,7 @@ class PackageModel {
     required this.panelCount,
     required this.totalPrice,
     required this.type,
+    this.batteryConfig,
   });
 
   factory PackageModel.fromJson(Map<String, dynamic> json) => PackageModel(
@@ -60,6 +62,9 @@ class PackageModel {
     panelCount: json["panelCount"],
     totalPrice: json["totalPrice"],
     type: json["type"],
+    batteryConfig: json["batteryConfig"] != null
+        ? BatteryConfigModel.fromJson(json["batteryConfig"])
+        : null,
   );
 
   Map<String, dynamic> toJson() => {
@@ -68,6 +73,49 @@ class PackageModel {
     "panelCount": panelCount,
     "totalPrice": totalPrice,
     "type": type,
+    "batteryConfig": batteryConfig?.toJson(),
+  };
+}
+
+class BatteryConfigModel {
+  String name;
+  int capacityWh;
+  int count;
+  int totalCost;
+  int price;
+  String? image;
+
+  BatteryConfigModel({
+    required this.name,
+    required this.capacityWh,
+    required this.count,
+    required this.totalCost,
+    required this.price,
+    this.image,
+  });
+
+  factory BatteryConfigModel.fromJson(Map<String, dynamic> json) {
+    final countVal = json["count"] ?? 1;
+    final totalCostVal = json["totalCost"] ?? json["price"] ?? 0;
+    final priceVal = json["price"] ?? (countVal > 0 ? (totalCostVal ~/ countVal) : 0);
+
+    return BatteryConfigModel(
+      name: json["brand"] ?? json["name"] ?? 'Battery',
+      capacityWh: json["capacityWh"] ?? json["capacity"] ?? 0,
+      count: countVal,
+      totalCost: totalCostVal,
+      price: priceVal,
+      image: json["image"],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    "brand": name,
+    "capacityWh": capacityWh,
+    "count": count,
+    "totalCost": totalCost,
+    "price": price,
+    "image": image,
   };
 }
 
