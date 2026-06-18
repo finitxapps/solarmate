@@ -25,7 +25,7 @@ class ConsumerItem {
   int concurrentCount = 0;
   bool isConcurrent = false;
   bool amperControl;
-  // String? comment;
+  String? comment;
   // Map<String, dynamic>? features;
   int batteryCount = 0;
   bool isBatteryBackup = false;
@@ -37,6 +37,7 @@ class ConsumerItem {
     required this.surgeWattage,
     required this.inverter,
     required this.amperControl,
+    this.comment,
     // required this.features,
   });
 
@@ -47,6 +48,7 @@ class ConsumerItem {
     surgeWattage: json["surgeWattage"],
     inverter: json["inverter"],
     amperControl: json["amperControl"],
+    comment: json["comment"],
     // features: json["features"],
   );
 
@@ -62,6 +64,7 @@ class ConsumerItem {
     "amperControl": amperControl,
     "batteryCount": batteryCount,
     "isBatteryBackup": isBatteryBackup,
+    "comment": comment,
     // "features": features,
   };
 

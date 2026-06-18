@@ -91,6 +91,7 @@ class AppTranslation extends Translations {
       AppMessages.unitPrice: 'قیمت واحد',
       AppMessages.count: 'تعداد',
       AppMessages.inverterCount: 'تعداد اینورتر',
+      AppMessages.detailsTitle: 'توضیحات بیشتر',
     },
     'en': {
       AppMessages.appName: 'Solar Mate',
@@ -178,6 +179,7 @@ class AppTranslation extends Translations {
       AppMessages.unitPrice: 'Unit Price',
       AppMessages.count: 'Count',
       AppMessages.inverterCount: 'Inverter Count',
+      AppMessages.detailsTitle: 'More Details',
     },
   };
 }

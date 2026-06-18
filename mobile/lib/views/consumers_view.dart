@@ -5,6 +5,7 @@ import 'package:get/utils.dart';
 import 'package:solar_mate/I18n/messages.dart';
 import 'package:solar_mate/widgets/colors_widget.dart';
 import 'package:solar_mate/controllers/main_controller.dart';
+import 'package:solar_mate/utils/consumer_helper.dart';
 
 class ConsumersView extends StatelessWidget {
   const ConsumersView({super.key});
@@ -52,14 +53,36 @@ class ConsumersView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.tv, size: 14, color: Colors.white54),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.tv, size: 14, color: Colors.white54),
+                            if (consumersModelList[listIndex].comment != null &&
+                                consumersModelList[listIndex].comment!.trim().isNotEmpty) ...[
+                              const SizedBox(width: 6),
+                              GestureDetector(
+                                onTap: () {
+                                  ConsumerHelper.showCommentBottomSheet(
+                                    context,
+                                    consumersModelList[listIndex],
+                                  );
+                                },
+                                child: const Icon(
+                                  Icons.info_outline_rounded,
+                                  size: 14,
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
                         Text(
                           consumersModelList[listIndex].type,
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          style: const TextStyle(color: Colors.white, fontSize: 12),
                         ),
                         Text(
                           '${consumersModelList[listIndex].normalWattage} ${AppMessages.wattage.tr}',
-                          style: TextStyle(color: Colors.white54, fontSize: 10),
+                          style: const TextStyle(color: Colors.white54, fontSize: 10),
                         ),
                       ],
                     ),
@@ -111,12 +134,33 @@ class ConsumersView extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  MainController
-                                      .to
-                                      .selectedConsumers[index]
-                                      .type,
-                                  style: TextStyle(fontSize: 14),
+                                Row(
+                                  children: [
+                                    Text(
+                                      MainController
+                                          .to
+                                          .selectedConsumers[index]
+                                          .type,
+                                      style: const TextStyle(fontSize: 14),
+                                    ),
+                                    if (MainController.to.selectedConsumers[index].comment != null &&
+                                        MainController.to.selectedConsumers[index].comment!.trim().isNotEmpty) ...[
+                                      const SizedBox(width: 6),
+                                      InkWell(
+                                        onTap: () {
+                                          ConsumerHelper.showCommentBottomSheet(
+                                            context,
+                                            MainController.to.selectedConsumers[index],
+                                          );
+                                        },
+                                        child: const Icon(
+                                          Icons.info_outline_rounded,
+                                          size: 16,
+                                          color: primaryColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ],
                                 ),
                                 Row(
                                   children: [

@@ -78,4 +78,5 @@ class AppMessages {
   static const String unitPrice = 'unitPrice';
   static const String count = 'count';
   static const String inverterCount = 'inverterCount';
+  static const String detailsTitle = 'detailsTitle';
 }

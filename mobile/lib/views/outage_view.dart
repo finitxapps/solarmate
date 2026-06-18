@@ -4,6 +4,7 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:solar_mate/I18n/messages.dart';
 import 'package:solar_mate/controllers/main_controller.dart';
 import 'package:solar_mate/widgets/colors_widget.dart';
+import 'package:solar_mate/utils/consumer_helper.dart';
 
 class OutageView extends StatelessWidget {
   const OutageView({super.key});
@@ -409,12 +410,38 @@ class OutageView extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    MainController.to.selectedConsumers[index].type,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w900,
-                                    ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          MainController.to.selectedConsumers[index].type,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w900,
+                                          ),
+                                        ),
+                                      ),
+                                      if (MainController.to.selectedConsumers[index].comment != null &&
+                                          MainController.to.selectedConsumers[index].comment!.trim().isNotEmpty) ...[
+                                        const SizedBox(width: 6),
+                                        InkWell(
+                                          onTap: () {
+                                            ConsumerHelper.showCommentBottomSheet(
+                                              context,
+                                              MainController.to.selectedConsumers[index],
+                                            );
+                                          },
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(4.0),
+                                            child: Icon(
+                                              Icons.info_outline_rounded,
+                                              size: 16,
+                                              color: primaryColor,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ],
                                   ),
                                   Text(
                                     '${AppMessages.systemTotal.tr} ${MainController.to.selectedConsumers[index].count} | ${MainController.to.selectedConsumers[index].normalWattage} ${AppMessages.wattage.tr} ${AppMessages.perUnit.tr}',
