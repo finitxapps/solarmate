@@ -134,9 +134,12 @@ class ResultView extends StatelessWidget {
                               title: AppMessages.inverter.tr,
                               name: package.inverter.name,
                               powerText: '${package.inverter.maxPower} W',
-                              priceText: package.inverter.price.toMoney(),
+                              priceText: package.inverterCount > 1
+                                  ? '${AppMessages.unitPrice.tr}: ${package.inverter.price.toMoney()}  |  ${AppMessages.total.tr}: ${(package.inverter.price * package.inverterCount).toMoney()}'
+                                  : package.inverter.price.toMoney(),
                               imageUrl: package.inverter.image,
                               icon: Icons.settings_input_component_rounded,
+                              extraInfo: '${AppMessages.inverterCount.tr}: ${package.inverterCount}',
                             ),
                             const SizedBox(height: 16),
                             const Divider(color: Colors.white12, height: 1),

@@ -41,6 +41,7 @@ class ResultModel {
 
 class PackageModel {
   InverterModel inverter;
+  int inverterCount;
   PanelModel panel;
   int panelCount;
   int totalPrice;
@@ -49,6 +50,7 @@ class PackageModel {
 
   PackageModel({
     required this.inverter,
+    required this.inverterCount,
     required this.panel,
     required this.panelCount,
     required this.totalPrice,
@@ -58,6 +60,7 @@ class PackageModel {
 
   factory PackageModel.fromJson(Map<String, dynamic> json) => PackageModel(
     inverter: InverterModel.fromJson(json["inverter"]),
+    inverterCount: json["inverterCount"] ?? 1,
     panel: PanelModel.fromJson(json["panel"]),
     panelCount: json["panelCount"],
     totalPrice: json["totalPrice"],
@@ -69,6 +72,7 @@ class PackageModel {
 
   Map<String, dynamic> toJson() => {
     "inverter": inverter.toJson(),
+    "inverterCount": inverterCount,
     "panel": panel.toJson(),
     "panelCount": panelCount,
     "totalPrice": totalPrice,
