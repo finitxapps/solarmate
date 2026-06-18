@@ -25,6 +25,12 @@ class ResultView extends StatelessWidget {
         );
       }
 
+      final fixedCostsSum = result.otherCosts.fold<int>(0, (sum, item) => sum + item.price);
+      final selectedIndex = MainController.to.selectedPackageIndex.value;
+      final selectedPackage = selectedIndex >= 0 && selectedIndex < result.packages.length
+          ? result.packages[selectedIndex]
+          : null;
+
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -285,6 +291,120 @@ class ResultView extends StatelessWidget {
               },
             ),
           ),
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              const Icon(Icons.flash_on_rounded, color: primaryColor, size: 28),
+              const SizedBox(width: 8),
+              Text(
+                AppMessages.systemCapacityTitle.tr,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: darkColor,
+              border: Border.all(color: Colors.white12, width: 1),
+            ),
+            child: Column(
+              children: [
+                _buildSpecRow(
+                  label: AppMessages.totalConsumersLoad.tr,
+                  value: '${result.calculations.totalWattage} W',
+                ),
+                const SizedBox(height: 12),
+                const Divider(color: Colors.white12, height: 1),
+                const SizedBox(height: 12),
+                _buildSpecRow(
+                  label: AppMessages.totalPanelGeneration.tr,
+                  value: selectedPackage != null
+                      ? '${selectedPackage.panel.power * selectedPackage.panelCount} W'
+                      : '-',
+                ),
+                const SizedBox(height: 12),
+                const Divider(color: Colors.white12, height: 1),
+                const SizedBox(height: 12),
+                _buildSpecRow(
+                  label: AppMessages.maxConcurrentLoad.tr,
+                  value: '${result.calculations.totalConcurrentWattage} W',
+                ),
+                const SizedBox(height: 12),
+                const Divider(color: Colors.white12, height: 1),
+                const SizedBox(height: 12),
+                _buildSpecRow(
+                  label: AppMessages.maxSurgeLoad.tr,
+                  value: '${result.calculations.totalSurgeWattage} W',
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              const Icon(Icons.calculate_rounded, color: primaryColor, size: 28),
+              const SizedBox(width: 8),
+              Text(
+                AppMessages.projectCostBreakdownTitle.tr,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: darkColor,
+              border: Border.all(color: Colors.white12, width: 1),
+            ),
+            child: Column(
+              children: [
+                _buildSpecRow(
+                  label: AppMessages.selectedPackageCost.tr,
+                  value: selectedPackage != null
+                      ? selectedPackage.totalPrice.toMoney()
+                      : '-',
+                ),
+                const SizedBox(height: 12),
+                const Divider(color: Colors.white12, height: 1),
+                const SizedBox(height: 12),
+                _buildSpecRow(
+                  label: AppMessages.fixedSetupCosts.tr,
+                  value: fixedCostsSum.toMoney(),
+                ),
+                const SizedBox(height: 16),
+                const Divider(color: Colors.white24, height: 1, thickness: 1.5),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppMessages.totalProjectCost.tr,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      selectedPackage != null
+                          ? (selectedPackage.totalPrice + fixedCostsSum).toMoney()
+                          : fixedCostsSum.toMoney(),
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
+                        color: primaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       );
     });
@@ -402,6 +522,30 @@ class ResultView extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSpecRow({required String label, required String value}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: Colors.white70,
+          ),
+        ),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
       ],

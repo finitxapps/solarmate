@@ -12,30 +12,65 @@ String resultToJson(ResultModel data) => json.encode(data.toJson());
 
 class ResultModel {
   List<PackageModel> packages;
-  // List<SuggestionModel> suggestions;
   List<OtherCostModel> otherCosts;
+  CalculationsModel calculations;
 
   ResultModel({
     required this.packages,
-    // required this.suggestions,
     required this.otherCosts,
+    required this.calculations,
   });
 
   factory ResultModel.fromJson(Map<String, dynamic> json) => ResultModel(
     packages: List<PackageModel>.from(
       json["packages"].map((x) => PackageModel.fromJson(x)),
     ),
-    // suggestions: List<SuggestionModel>.from(
-    //     json["suggestions"].map((x) => SuggestionModel.fromJson(x))),
     otherCosts: List<OtherCostModel>.from(
       json["otherCosts"].map((x) => OtherCostModel.fromJson(x)),
     ),
+    calculations: CalculationsModel.fromJson(json["calculations"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
     "packages": List<dynamic>.from(packages.map((x) => x.toJson())),
-    // "suggestions": List<dynamic>.from(suggestions.map((x) => x.toJson())),
     "otherCosts": List<dynamic>.from(otherCosts.map((x) => x.toJson())),
+    "calculations": calculations.toJson(),
+  };
+}
+
+class CalculationsModel {
+  int totalWattage;
+  int totalSurgeWattage;
+  int totalConcurrentWattage;
+  int totalConcurrentSurgeWattage;
+  int batteryDrawWattage;
+  int requiredBatteryCapacityWh;
+
+  CalculationsModel({
+    required this.totalWattage,
+    required this.totalSurgeWattage,
+    required this.totalConcurrentWattage,
+    required this.totalConcurrentSurgeWattage,
+    required this.batteryDrawWattage,
+    required this.requiredBatteryCapacityWh,
+  });
+
+  factory CalculationsModel.fromJson(Map<String, dynamic> json) => CalculationsModel(
+    totalWattage: json["totalWattage"] ?? 0,
+    totalSurgeWattage: json["totalSurgeWattage"] ?? 0,
+    totalConcurrentWattage: json["totalConcurrentWattage"] ?? 0,
+    totalConcurrentSurgeWattage: json["totalConcurrentSurgeWattage"] ?? 0,
+    batteryDrawWattage: json["batteryDrawWattage"] ?? 0,
+    requiredBatteryCapacityWh: json["requiredBatteryCapacityWh"] ?? 0,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "totalWattage": totalWattage,
+    "totalSurgeWattage": totalSurgeWattage,
+    "totalConcurrentWattage": totalConcurrentWattage,
+    "totalConcurrentSurgeWattage": totalConcurrentSurgeWattage,
+    "batteryDrawWattage": batteryDrawWattage,
+    "requiredBatteryCapacityWh": requiredBatteryCapacityWh,
   };
 }
 

@@ -79,4 +79,13 @@ class AppMessages {
   static const String count = 'count';
   static const String inverterCount = 'inverterCount';
   static const String detailsTitle = 'detailsTitle';
+  static const String totalConsumersLoad = 'totalConsumersLoad';
+  static const String totalPanelGeneration = 'totalPanelGeneration';
+  static const String maxConcurrentLoad = 'maxConcurrentLoad';
+  static const String maxSurgeLoad = 'maxSurgeLoad';
+  static const String selectedPackageCost = 'selectedPackageCost';
+  static const String fixedSetupCosts = 'fixedSetupCosts';
+  static const String totalProjectCost = 'totalProjectCost';
+  static const String systemCapacityTitle = 'systemCapacityTitle';
+  static const String projectCostBreakdownTitle = 'projectCostBreakdownTitle';
 }

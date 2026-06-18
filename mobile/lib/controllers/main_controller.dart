@@ -138,6 +138,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
     if (response.body.isNotEmpty) {
       print(response.body);
       resultModel.value = resultFromJson(response.body);
+      selectedPackageIndex.value = 0;
       nextPage();
     }
     showLoading.value = false;
