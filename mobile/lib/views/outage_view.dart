@@ -444,7 +444,7 @@ class OutageView extends StatelessWidget {
                                     ],
                                   ),
                                   Text(
-                                    '${AppMessages.systemTotal.tr} ${MainController.to.selectedConsumers[index].count} | ${MainController.to.selectedConsumers[index].normalWattage} ${AppMessages.wattage.tr} ${AppMessages.perUnit.tr}',
+                                    '${AppMessages.systemTotal.tr} ${MainController.to.selectedConsumers[index].count} | ${MainController.to.selectedConsumers[index].normalWattage} ${AppMessages.wattage.tr} ${AppMessages.perUnit.tr} | ${MainController.to.selectedConsumers[index].threePhase ? AppMessages.ph3.tr : AppMessages.ph1.tr}',
                                     style: const TextStyle(
                                       color: Colors.white54,
                                       fontSize: 12,

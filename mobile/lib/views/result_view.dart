@@ -133,7 +133,7 @@ class ResultView extends StatelessWidget {
                               context: context,
                               title: AppMessages.inverter.tr,
                               name: package.inverter.name,
-                              powerText: '${package.inverter.maxPower} W',
+                              powerText: '${package.inverter.maxPower} W | ${package.inverter.threePhase ? AppMessages.ph3.tr : AppMessages.ph1.tr}',
                               priceText: package.inverterCount > 1
                                   ? '${AppMessages.unitPrice.tr}: ${package.inverter.price.toMoney()}  |  ${AppMessages.total.tr}: ${(package.inverter.price * package.inverterCount).toMoney()}'
                                   : package.inverter.price.toMoney(),

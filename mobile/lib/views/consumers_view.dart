@@ -170,8 +170,8 @@ class ConsumersView extends StatelessWidget {
                                       color: Colors.white54,
                                     ),
                                     Text(
-                                      '${MainController.to.selectedConsumers[index].normalWattage} ${AppMessages.wattage.tr} ${AppMessages.perUnit.tr}',
-                                      style: TextStyle(
+                                      '${MainController.to.selectedConsumers[index].normalWattage} ${AppMessages.wattage.tr} ${AppMessages.perUnit.tr} | ${MainController.to.selectedConsumers[index].threePhase ? AppMessages.ph3.tr : AppMessages.ph1.tr}',
+                                      style: const TextStyle(
                                         color: Colors.white54,
                                         fontSize: 10,
                                       ),

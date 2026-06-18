@@ -128,11 +128,13 @@ class InverterModel {
   int maxPower;
   int price;
   String? image;
+  bool threePhase;
 
   InverterModel({
     required this.name,
     required this.maxPower,
     required this.price,
+    required this.threePhase,
     this.image,
   });
 
@@ -141,6 +143,7 @@ class InverterModel {
     maxPower: json["power"] ?? json["maxPower"] ?? 0,
     price: json["price"] ?? 0,
     image: json["image"],
+    threePhase: json["three_phase"] ?? json["threePhase"] ?? false,
   );
 
   Map<String, dynamic> toJson() => {
@@ -148,6 +151,7 @@ class InverterModel {
     "maxPower": maxPower,
     "price": price,
     "image": image,
+    "three_phase": threePhase,
   };
 }
 
